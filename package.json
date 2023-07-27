@@ -1,0 +1,26 @@
+{
+  "name": "ex_prosemirror",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "module": "./priv/static/ex_prosemirror.esm.js",
+  "main": "./priv/static/ex_prosemirror.cjs.js",
+  "unpkg": "./priv/static/ex_prosemirror.min.js",
+  "jsdelivr": "./priv/static/ex_prosemirror.min.js",
+  "exports": {
+    "import": "./priv/static/ex_prosemirror.esm.js",
+    "require": "./priv/static/ex_prosemirror.cjs.js"
+  },
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:castmagic-io/ex_prosemirror.git"
+  },
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "package.json",
+    "priv/static/*",
+    "assets/js/ex_prosemirror/*"
+  ]
+}
