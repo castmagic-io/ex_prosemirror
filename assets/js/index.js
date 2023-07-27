@@ -9,7 +9,6 @@ export { keymap, baseKeymap, hardBreakKeymap } from './prosemirror/keymaps';
 export * as menu from './prosemirror/menu';
 export { default as createSchema } from './prosemirror/schema';
 export { default as ExEditorView } from './ExEditorView';
-export { default as inject } from './inject';
 
 /**
  * @type {NodeListOf<HTMLElement>} proseInstances
