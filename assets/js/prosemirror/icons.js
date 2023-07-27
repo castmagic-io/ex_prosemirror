@@ -1,7 +1,4 @@
-// import { icons as prosemirrorIcons } from 'prosemirror-menu';
-import inject from "../inject";
-
-const { icons: prosemirrorIcons } = inject('prosemirror-menu');
+import { icons as prosemirrorIcons } from 'prosemirror-menu';
 
 export const icons = {
   ...prosemirrorIcons,

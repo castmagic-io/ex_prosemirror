@@ -1,13 +1,8 @@
-// import { DOMParser } from 'prosemirror-model';
-// import { EditorState } from 'prosemirror-state';
-// import { EditorView } from 'prosemirror-view';
+import { DOMParser } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 import { insertPlaceholder } from './prosemirror/plugins/placeholder';
 import schemaFunc from './prosemirror/schema';
-import inject from './inject';
-
-const { DOMParser } = inject('prosemirror-model');
-const { EditorState } = inject('prosemirror-state');
-const { EditorView } = inject('prosemirror-view');
 
 export default class ExEditorView {
   /**

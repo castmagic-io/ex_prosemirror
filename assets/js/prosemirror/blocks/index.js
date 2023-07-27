@@ -1,10 +1,7 @@
-// import { nodes } from 'prosemirror-schema-basic';
+import { nodes } from 'prosemirror-schema-basic';
 import { generateExProsemirorBlocks } from './helpers';
 
 import { menuHelper } from '../menu';
-import inject from '../../inject';
-
-const { nodes } = inject('prosemirror-schema-basic');
 
 const paragraph = {
   ...nodes.paragraph,
