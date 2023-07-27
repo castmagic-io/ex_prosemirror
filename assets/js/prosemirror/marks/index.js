@@ -1,6 +1,9 @@
-import { marks as prosemirrorMarks } from 'prosemirror-schema-basic';
+// import { marks as prosemirrorMarks } from 'prosemirror-schema-basic';
+import inject from '../../inject';
 import { generateMarkItem, generateColorsMenu, generateFontFamilyMenu } from '../menu';
 import { generateExProsemirrorMarks } from './helper';
+
+const { marks: prosemirrorMarks } = inject('prosemirror-schema-basic');
 
 export const marks = {
   strong: { ...prosemirrorMarks.strong, generateMenuItem: generateMarkItem('strong') },

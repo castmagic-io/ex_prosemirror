@@ -1,6 +1,9 @@
-import { Schema } from 'prosemirror-model';
+// import { Schema } from 'prosemirror-model';
 import { generateSchemaMarks } from './marks';
 import { generateSchemablocks } from './blocks';
+import inject from '../inject';
+
+const { Schema } = inject('prosemirror-model');
 
 /**
  * @param {{blocks: Object[], marks: Object[], blocksSelection: JSON, marksSelection: JSON, inline: Boolean}} options

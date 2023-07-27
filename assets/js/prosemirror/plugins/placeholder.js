@@ -1,5 +1,9 @@
-import {Plugin} from 'prosemirror-state';
-import {Decoration, DecorationSet}  from 'prosemirror-view';
+// import {Plugin} from 'prosemirror-state';
+// import {Decoration, DecorationSet}  from 'prosemirror-view';
+import inject from '../../inject';
+
+const {Plugin} = inject('prosemirror-state');
+const {Decoration, DecorationSet} = inject('prosemirror-view');
 
 export const placeholderPlugin = new Plugin({
   state: {

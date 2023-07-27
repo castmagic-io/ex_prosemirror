@@ -1,7 +1,11 @@
-import { MenuItem, blockTypeItem, Dropdown } from 'prosemirror-menu';
+// import { MenuItem, blockTypeItem, Dropdown } from 'prosemirror-menu';
 import { icons } from './icons';
-import { toggleMark } from 'prosemirror-commands';
+// import { toggleMark } from 'prosemirror-commands';
 import { toggleMultiMarks } from './marks/helper';
+import inject from '../inject';
+
+const { MenuItem, blockTypeItem, Dropdown } = inject('prosemirror-menu');
+const { toggleMark } = inject('prosemirror-commands');
 
 function getTitle({name: name, spec: {title}}) {
   return (title || name);

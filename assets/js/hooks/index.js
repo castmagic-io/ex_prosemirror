@@ -1,6 +1,9 @@
-import { exampleSetup as pluginFunc } from 'prosemirror-example-setup';
+// import { exampleSetup as pluginFunc } from 'prosemirror-example-setup';
 import schemaFunc from '../prosemirror/schema';
 import exProsemirror from '../index';
+import inject from '../inject';
+
+const { exampleSetup: pluginFunc } = inject('prosemirror-example-setup');
 
 const ExProsemirrorHooks = {};
 
