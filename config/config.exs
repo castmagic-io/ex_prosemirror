@@ -5,9 +5,22 @@ config :ex_prosemirror,
   env: config_env()
 
 if Mix.env() == :dev do
+  external_deps =
+    Enum.map_join(
+      [
+        "prosemirror-example-setup",
+        "prosemirror-model",
+        "prosemirror-schema-basic",
+        "prosemirror-state",
+        "prosemirror-view"
+      ],
+      " ",
+      &"--external:#{&1}"
+    )
+
   esbuild = fn args ->
     [
-      args: ~w(./js --bundle) ++ args,
+      args: ~w(./js --bundle #{external_deps}) ++ args,
       cd: Path.expand("../assets", __DIR__),
       env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
     ]
