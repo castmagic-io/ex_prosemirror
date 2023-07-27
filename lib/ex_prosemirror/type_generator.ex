@@ -48,9 +48,17 @@ defmodule ExProsemirror.TypeGenerator do
 
       import Ecto.Changeset
 
+      alias ExProsemirror.Encoder.HTML, as: HTMLEncoder
+
       unquote(type_schema(context))
       unquote(type_changeset(context))
       defdelegate changeset(struct_or_changeset, attrs, allowed_marks), to: ExProsemirror.Type
+
+      defimpl HTMLEncoder do
+        def encode(struct, _opts) do
+          HTMLEncoder.encode(struct.content)
+        end
+      end
 
       defimpl Jason.Encoder do
         def encode(struct, opts) do
