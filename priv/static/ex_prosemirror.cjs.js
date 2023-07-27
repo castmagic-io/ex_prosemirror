@@ -26,7 +26,22 @@ var __export = (target, all) => {
 
 // js/index.js
 __export(exports, {
-  default: () => js_default
+  ExEditorView: () => ExEditorView,
+  ExProsemirrorHooks: () => ExProsemirrorHooks,
+  baseKeymap: () => baseKeymap,
+  blocks: () => blocks,
+  createSchema: () => schema_default,
+  default: () => js_default,
+  generateSchemaMarks: () => generateSchemaMarks,
+  generateSchemablocks: () => generateSchemablocks,
+  hardBreakKeymap: () => hardBreakKeymap,
+  icons: () => icons2,
+  insertPlaceholder: () => insertPlaceholder,
+  keymap: () => keymap,
+  marks: () => marks3,
+  menu: () => menu_exports,
+  placeholderPlugin: () => placeholderPlugin,
+  replacePlaceholder: () => replacePlaceholder
 });
 
 // node_modules/orderedmap/index.es.js
@@ -83,23 +98,23 @@ OrderedMap.prototype = {
     for (var i = 0; i < this.content.length; i += 2)
       f(this.content[i], this.content[i + 1]);
   },
-  prepend: function(map14) {
-    map14 = OrderedMap.from(map14);
-    if (!map14.size)
+  prepend: function(map15) {
+    map15 = OrderedMap.from(map15);
+    if (!map15.size)
       return this;
-    return new OrderedMap(map14.content.concat(this.subtract(map14).content));
+    return new OrderedMap(map15.content.concat(this.subtract(map15).content));
   },
-  append: function(map14) {
-    map14 = OrderedMap.from(map14);
-    if (!map14.size)
+  append: function(map15) {
+    map15 = OrderedMap.from(map15);
+    if (!map15.size)
       return this;
-    return new OrderedMap(this.subtract(map14).content.concat(map14.content));
+    return new OrderedMap(this.subtract(map15).content.concat(map15.content));
   },
-  subtract: function(map14) {
+  subtract: function(map15) {
     var result2 = this;
-    map14 = OrderedMap.from(map14);
-    for (var i = 0; i < map14.content.length; i += 2)
-      result2 = result2.remove(map14.content[i]);
+    map15 = OrderedMap.from(map15);
+    for (var i = 0; i < map15.content.length; i += 2)
+      result2 = result2.remove(map15.content[i]);
     return result2;
   },
   get size() {
@@ -1299,9 +1314,9 @@ var TextNode = /* @__PURE__ */ function(Node4) {
     return this.sameMarkup(other) && this.text == other.text;
   };
   TextNode2.prototype.toJSON = function toJSON7() {
-    var base = Node4.prototype.toJSON.call(this);
-    base.text = this.text;
-    return base;
+    var base2 = Node4.prototype.toJSON.call(this);
+    base2.text = this.text;
+    return base2;
   };
   Object.defineProperties(TextNode2.prototype, prototypeAccessors$15);
   return TextNode2;
@@ -2168,11 +2183,11 @@ var listTags = { ol: true, ul: true };
 var OPT_PRESERVE_WS = 1;
 var OPT_PRESERVE_WS_FULL = 2;
 var OPT_OPEN_LEFT = 4;
-function wsOptionsFor(type, preserveWhitespace, base) {
+function wsOptionsFor(type, preserveWhitespace, base2) {
   if (preserveWhitespace != null) {
     return (preserveWhitespace ? OPT_PRESERVE_WS : 0) | (preserveWhitespace === "full" ? OPT_PRESERVE_WS_FULL : 0);
   }
-  return type && type.whitespace == "pre" ? OPT_PRESERVE_WS | OPT_PRESERVE_WS_FULL : base & ~OPT_OPEN_LEFT;
+  return type && type.whitespace == "pre" ? OPT_PRESERVE_WS | OPT_PRESERVE_WS_FULL : base2 & ~OPT_OPEN_LEFT;
 }
 var NodeContext = function NodeContext2(type, attrs, marks4, pendingMarks, solid, match, options) {
   this.type = type;
@@ -3016,8 +3031,8 @@ Mapping.prototype.slice = function slice2(from4, to) {
 Mapping.prototype.copy = function copy3() {
   return new Mapping(this.maps.slice(), this.mirror && this.mirror.slice(), this.from, this.to);
 };
-Mapping.prototype.appendMap = function appendMap(map14, mirrors) {
-  this.to = this.maps.push(map14);
+Mapping.prototype.appendMap = function appendMap(map15, mirrors) {
+  this.to = this.maps.push(map15);
   if (mirrors != null) {
     this.setMirror(this.maps.length - 1, mirrors);
   }
@@ -3073,7 +3088,7 @@ Mapping.prototype.mapResult = function mapResult2(pos, assoc) {
 Mapping.prototype._map = function _map2(pos, assoc, simple) {
   var deleted = false;
   for (var i = this.from; i < this.to; i++) {
-    var map14 = this.maps[i], result2 = map14.mapResult(pos, assoc);
+    var map15 = this.maps[i], result2 = map15.mapResult(pos, assoc);
     if (result2.recover != null) {
       var corr = this.getMirror(i);
       if (corr != null && corr > i && corr < this.to) {
@@ -3217,7 +3232,7 @@ var ReplaceStep = /* @__PURE__ */ function(Step3) {
   ReplaceStep2.prototype.invert = function invert4(doc2) {
     return new ReplaceStep2(this.from, this.from + this.slice.size, doc2.slice(this.from, this.to));
   };
-  ReplaceStep2.prototype.map = function map14(mapping) {
+  ReplaceStep2.prototype.map = function map15(mapping) {
     var from4 = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
     if (from4.deleted && to.deleted) {
       return null;
@@ -3300,7 +3315,7 @@ var ReplaceAroundStep = /* @__PURE__ */ function(Step3) {
     var gap = this.gapTo - this.gapFrom;
     return new ReplaceAroundStep2(this.from, this.from + this.slice.size + gap, this.from + this.insert, this.from + this.insert + gap, doc2.slice(this.from, this.to).removeBetween(this.gapFrom - this.from, this.gapTo - this.from), this.gapFrom - this.from, this.structure);
   };
-  ReplaceAroundStep2.prototype.map = function map14(mapping) {
+  ReplaceAroundStep2.prototype.map = function map15(mapping) {
     var from4 = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
     var gapFrom = mapping.map(this.gapFrom, -1), gapTo = mapping.map(this.gapTo, 1);
     if (from4.deleted && to.deleted || gapFrom < from4.pos || gapTo > to.pos) {
@@ -3397,6 +3412,49 @@ Transform.prototype.lift = function(range, target) {
   }
   return this.step(new ReplaceAroundStep(start3, end2, gapStart, gapEnd, new Slice(before2.append(after2), openStart, openEnd), before2.size - openStart, true));
 };
+function findWrapping3(range, nodeType2, attrs, innerRange) {
+  if (innerRange === void 0)
+    innerRange = range;
+  var around = findWrappingOutside(range, nodeType2);
+  var inner = around && findWrappingInside(innerRange, nodeType2);
+  if (!inner) {
+    return null;
+  }
+  return around.map(withAttrs).concat({ type: nodeType2, attrs }).concat(inner.map(withAttrs));
+}
+function withAttrs(type) {
+  return { type, attrs: null };
+}
+function findWrappingOutside(range, type) {
+  var parent = range.parent;
+  var startIndex = range.startIndex;
+  var endIndex = range.endIndex;
+  var around = parent.contentMatchAt(startIndex).findWrapping(type);
+  if (!around) {
+    return null;
+  }
+  var outer = around.length ? around[0] : type;
+  return parent.canReplaceWith(startIndex, endIndex, outer) ? around : null;
+}
+function findWrappingInside(range, type) {
+  var parent = range.parent;
+  var startIndex = range.startIndex;
+  var endIndex = range.endIndex;
+  var inner = parent.child(startIndex);
+  var inside = type.contentMatch.findWrapping(inner.type);
+  if (!inside) {
+    return null;
+  }
+  var lastType = inside.length ? inside[inside.length - 1] : type;
+  var innerMatch = lastType.contentMatch;
+  for (var i = startIndex; innerMatch && i < endIndex; i++) {
+    innerMatch = innerMatch.matchType(parent.child(i).type);
+  }
+  if (!innerMatch || !innerMatch.validEnd) {
+    return null;
+  }
+  return inside;
+}
 Transform.prototype.wrap = function(range, wrappers) {
   var content2 = Fragment.empty;
   for (var i = wrappers.length - 1; i >= 0; i--) {
@@ -3454,12 +3512,12 @@ Transform.prototype.setNodeMarkup = function(pos, type, attrs, marks4) {
 function canSplit(doc2, pos, depth, typesAfter) {
   if (depth === void 0)
     depth = 1;
-  var $pos = doc2.resolve(pos), base = $pos.depth - depth;
+  var $pos = doc2.resolve(pos), base2 = $pos.depth - depth;
   var innerType = typesAfter && typesAfter[typesAfter.length - 1] || $pos.parent;
-  if (base < 0 || $pos.parent.type.spec.isolating || !$pos.parent.canReplace($pos.index(), $pos.parent.childCount) || !innerType.type.validContent($pos.parent.content.cutByIndex($pos.index(), $pos.parent.childCount))) {
+  if (base2 < 0 || $pos.parent.type.spec.isolating || !$pos.parent.canReplace($pos.index(), $pos.parent.childCount) || !innerType.type.validContent($pos.parent.content.cutByIndex($pos.index(), $pos.parent.childCount))) {
     return false;
   }
-  for (var d = $pos.depth - 1, i = depth - 2; d > base; d--, i--) {
+  for (var d = $pos.depth - 1, i = depth - 2; d > base2; d--, i--) {
     var node4 = $pos.node(d), index$1 = $pos.index(d);
     if (node4.type.spec.isolating) {
       return false;
@@ -3473,9 +3531,9 @@ function canSplit(doc2, pos, depth, typesAfter) {
       return false;
     }
   }
-  var index2 = $pos.indexAfter(base);
+  var index2 = $pos.indexAfter(base2);
   var baseType = typesAfter && typesAfter[0];
-  return $pos.node(base).canReplaceWith(index2, index2, baseType ? baseType.type : $pos.node(base + 1).type);
+  return $pos.node(base2).canReplaceWith(index2, index2, baseType ? baseType.type : $pos.node(base2 + 1).type);
 }
 Transform.prototype.split = function(pos, depth, typesAfter) {
   if (depth === void 0)
@@ -3622,7 +3680,7 @@ var AddMarkStep = /* @__PURE__ */ function(Step3) {
   AddMarkStep2.prototype.invert = function invert4() {
     return new RemoveMarkStep(this.from, this.to, this.mark);
   };
-  AddMarkStep2.prototype.map = function map14(mapping) {
+  AddMarkStep2.prototype.map = function map15(mapping) {
     var from4 = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
     if (from4.deleted && to.deleted || from4.pos >= to.pos) {
       return null;
@@ -3673,7 +3731,7 @@ var RemoveMarkStep = /* @__PURE__ */ function(Step3) {
   RemoveMarkStep2.prototype.invert = function invert4() {
     return new AddMarkStep(this.from, this.to, this.mark);
   };
-  RemoveMarkStep2.prototype.map = function map14(mapping) {
+  RemoveMarkStep2.prototype.map = function map15(mapping) {
     var from4 = mapping.mapResult(this.from, 1), to = mapping.mapResult(this.to, -1);
     if (from4.deleted && to.deleted || from4.pos >= to.pos) {
       return null;
@@ -4399,7 +4457,7 @@ var TextSelection = /* @__PURE__ */ function(Selection3) {
   prototypeAccessors$15.$cursor.get = function() {
     return this.$anchor.pos == this.$head.pos ? this.$head : null;
   };
-  TextSelection2.prototype.map = function map14(doc2, mapping) {
+  TextSelection2.prototype.map = function map15(doc2, mapping) {
     var $head = doc2.resolve(mapping.map(this.head));
     if (!$head.parent.inlineContent) {
       return Selection3.near($head);
@@ -4489,7 +4547,7 @@ var NodeSelection = /* @__PURE__ */ function(Selection3) {
     NodeSelection2.__proto__ = Selection3;
   NodeSelection2.prototype = Object.create(Selection3 && Selection3.prototype);
   NodeSelection2.prototype.constructor = NodeSelection2;
-  NodeSelection2.prototype.map = function map14(doc2, mapping) {
+  NodeSelection2.prototype.map = function map15(doc2, mapping) {
     var ref = mapping.mapResult(this.anchor);
     var deleted = ref.deleted;
     var pos = ref.pos;
@@ -4570,7 +4628,7 @@ var AllSelection = /* @__PURE__ */ function(Selection3) {
   AllSelection2.fromJSON = function fromJSON8(doc2) {
     return new AllSelection2(doc2);
   };
-  AllSelection2.prototype.map = function map14(doc2) {
+  AllSelection2.prototype.map = function map15(doc2) {
     return new AllSelection2(doc2);
   };
   AllSelection2.prototype.eq = function eq12(other) {
@@ -4616,8 +4674,8 @@ function selectionToInsertionEnd(tr, startLen, bias) {
   if (!(step2 instanceof ReplaceStep || step2 instanceof ReplaceAroundStep)) {
     return;
   }
-  var map14 = tr.mapping.maps[last], end2;
-  map14.forEach(function(_from, _to, _newFrom, newTo) {
+  var map15 = tr.mapping.maps[last], end2;
+  map15.forEach(function(_from, _to, _newFrom, newTo) {
     if (end2 == null) {
       end2 = newTo;
     }
@@ -5023,14 +5081,14 @@ if (typeof navigator != "undefined" && typeof document != "undefined") {
   ie_edge = /Edge\/(\d+)/.exec(navigator.userAgent);
   ie_upto10 = /MSIE \d/.test(navigator.userAgent);
   ie_11up = /Trident\/(?:[7-9]|\d{2,})\..*rv:(\d+)/.exec(navigator.userAgent);
-  ie = result.ie = !!(ie_upto10 || ie_11up || ie_edge);
+  ie2 = result.ie = !!(ie_upto10 || ie_11up || ie_edge);
   result.ie_version = ie_upto10 ? document.documentMode || 6 : ie_11up ? +ie_11up[1] : ie_edge ? +ie_edge[1] : null;
-  result.gecko = !ie && /gecko\/(\d+)/i.test(navigator.userAgent);
+  result.gecko = !ie2 && /gecko\/(\d+)/i.test(navigator.userAgent);
   result.gecko_version = result.gecko && +(/Firefox\/(\d+)/.exec(navigator.userAgent) || [0, 0])[1];
-  chrome = !ie && /Chrome\/(\d+)/.exec(navigator.userAgent);
-  result.chrome = !!chrome;
-  result.chrome_version = chrome && +chrome[1];
-  result.safari = !ie && /Apple Computer/.test(navigator.vendor);
+  chrome2 = !ie2 && /Chrome\/(\d+)/.exec(navigator.userAgent);
+  result.chrome = !!chrome2;
+  result.chrome_version = chrome2 && +chrome2[1];
+  result.safari = !ie2 && /Apple Computer/.test(navigator.vendor);
   result.ios = result.safari && (/Mobile\/\w+/.test(navigator.userAgent) || navigator.maxTouchPoints > 2);
   result.mac = result.ios || /Mac/.test(navigator.platform);
   result.android = /Android \d/.test(navigator.userAgent);
@@ -5040,8 +5098,8 @@ if (typeof navigator != "undefined" && typeof document != "undefined") {
 var ie_edge;
 var ie_upto10;
 var ie_11up;
-var ie;
-var chrome;
+var ie2;
+var chrome2;
 var domIndex = function(node4) {
   for (var index2 = 0; ; index2++) {
     node4 = node4.previousSibling;
@@ -5845,14 +5903,14 @@ ViewDesc.prototype.domFromPos = function domFromPos(pos, side) {
     return { node: this.contentDOM, offset: next ? domIndex(next.dom) : this.contentDOM.childNodes.length };
   }
 };
-ViewDesc.prototype.parseRange = function parseRange(from4, to, base) {
-  if (base === void 0)
-    base = 0;
+ViewDesc.prototype.parseRange = function parseRange(from4, to, base2) {
+  if (base2 === void 0)
+    base2 = 0;
   if (this.children.length == 0) {
     return { node: this.contentDOM, from: from4, to, fromOffset: 0, toOffset: this.contentDOM.childNodes.length };
   }
   var fromOffset = -1, toOffset = -1;
-  for (var offset2 = base, i = 0; ; i++) {
+  for (var offset2 = base2, i = 0; ; i++) {
     var child3 = this.children[i], end2 = offset2 + child3.size;
     if (fromOffset == -1 && from4 <= end2) {
       var childBase = offset2 + child3.border;
@@ -6068,7 +6126,7 @@ var WidgetViewDesc = /* @__PURE__ */ function(ViewDesc3) {
   WidgetViewDesc2.prototype.ignoreMutation = function ignoreMutation2(mutation) {
     return mutation.type != "selection" || this.widget.spec.ignoreSelection;
   };
-  WidgetViewDesc2.prototype.destroy = function destroy5() {
+  WidgetViewDesc2.prototype.destroy = function destroy6() {
     this.widget.type.destroy(this.dom);
     ViewDesc3.prototype.destroy.call(this);
   };
@@ -6347,7 +6405,7 @@ var NodeViewDesc = /* @__PURE__ */ function(ViewDesc3) {
     view.compositionNodes.push(desc);
     this.children = replaceNodes(this.children, pos, pos + text2.length, view, desc);
   };
-  NodeViewDesc2.prototype.update = function update3(node4, outerDeco, innerDeco, view) {
+  NodeViewDesc2.prototype.update = function update4(node4, outerDeco, innerDeco, view) {
     if (this.dirty == NODE_DIRTY || !node4.sameMarkup(this.node)) {
       return false;
     }
@@ -6414,7 +6472,7 @@ var TextViewDesc = /* @__PURE__ */ function(NodeViewDesc2) {
     }
     return { skip: skip || true };
   };
-  TextViewDesc2.prototype.update = function update3(node4, outerDeco, _, view) {
+  TextViewDesc2.prototype.update = function update4(node4, outerDeco, _, view) {
     if (this.dirty == NODE_DIRTY || this.dirty != NOT_DIRTY && !this.inParent() || !node4.sameMarkup(this.node)) {
       return false;
     }
@@ -6499,7 +6557,7 @@ var CustomNodeViewDesc = /* @__PURE__ */ function(NodeViewDesc2) {
     CustomNodeViewDesc2.__proto__ = NodeViewDesc2;
   CustomNodeViewDesc2.prototype = Object.create(NodeViewDesc2 && NodeViewDesc2.prototype);
   CustomNodeViewDesc2.prototype.constructor = CustomNodeViewDesc2;
-  CustomNodeViewDesc2.prototype.update = function update3(node4, outerDeco, innerDeco, view) {
+  CustomNodeViewDesc2.prototype.update = function update4(node4, outerDeco, innerDeco, view) {
     if (this.dirty == NODE_DIRTY) {
       return false;
     }
@@ -6524,7 +6582,7 @@ var CustomNodeViewDesc = /* @__PURE__ */ function(NodeViewDesc2) {
   CustomNodeViewDesc2.prototype.setSelection = function setSelection2(anchor, head, root, force) {
     this.spec.setSelection ? this.spec.setSelection(anchor, head, root) : NodeViewDesc2.prototype.setSelection.call(this, anchor, head, root, force);
   };
-  CustomNodeViewDesc2.prototype.destroy = function destroy5() {
+  CustomNodeViewDesc2.prototype.destroy = function destroy6() {
     if (this.spec.destroy) {
       this.spec.destroy();
     }
@@ -7761,7 +7819,7 @@ function resolveSelection(view, doc2, parsedSel) {
 }
 function isMarkChange(cur, prev) {
   var curMarks = cur.firstChild.marks, prevMarks = prev.firstChild.marks;
-  var added = curMarks, removed = prevMarks, type, mark3, update3;
+  var added = curMarks, removed = prevMarks, type, mark3, update4;
   for (var i = 0; i < prevMarks.length; i++) {
     added = prevMarks[i].removeFromSet(added);
   }
@@ -7771,13 +7829,13 @@ function isMarkChange(cur, prev) {
   if (added.length == 1 && removed.length == 0) {
     mark3 = added[0];
     type = "add";
-    update3 = function(node4) {
+    update4 = function(node4) {
       return node4.mark(mark3.addToSet(node4.marks));
     };
   } else if (added.length == 0 && removed.length == 1) {
     mark3 = removed[0];
     type = "remove";
-    update3 = function(node4) {
+    update4 = function(node4) {
       return node4.mark(mark3.removeFromSet(node4.marks));
     };
   } else {
@@ -7785,7 +7843,7 @@ function isMarkChange(cur, prev) {
   }
   var updated = [];
   for (var i$2 = 0; i$2 < prev.childCount; i$2++) {
-    updated.push(update3(prev.child(i$2)));
+    updated.push(update4(prev.child(i$2)));
   }
   if (Fragment.from(updated).eq(cur)) {
     return { mark: mark3, type };
@@ -9501,7 +9559,7 @@ DecorationGroup.from = function from2(members) {
 };
 function mapChildren(oldChildren, newLocal, mapping, node4, offset2, oldOffset, options) {
   var children = oldChildren.slice();
-  var shift = function(oldStart, oldEnd, newStart, newEnd) {
+  var shift2 = function(oldStart, oldEnd, newStart, newEnd) {
     for (var i2 = 0; i2 < children.length; i2 += 3) {
       var end2 = children[i2 + 1], dSize = void 0;
       if (end2 < 0 || oldStart > end2 + oldOffset) {
@@ -9517,7 +9575,7 @@ function mapChildren(oldChildren, newLocal, mapping, node4, offset2, oldOffset, 
     }
   };
   for (var i = 0; i < mapping.maps.length; i++) {
-    mapping.maps[i].forEach(shift);
+    mapping.maps[i].forEach(shift2);
   }
   var mustRebuild = false;
   for (var i$1 = 0; i$1 < children.length; i$1 += 3) {
@@ -10257,6 +10315,24 @@ var marks2 = {
 };
 var schema = new Schema({ nodes, marks: marks2 });
 
+// js/prosemirror/menu.js
+var menu_exports = {};
+__export(menu_exports, {
+  cmdItem: () => cmdItem,
+  generateColorsMenu: () => generateColorsMenu,
+  generateFontFamilyMenu: () => generateFontFamilyMenu,
+  generateHTMLItem: () => generateHTMLItem,
+  generateHeadingItem: () => generateHeadingItem,
+  generateMarkItem: () => generateMarkItem,
+  generateMediaMenu: () => generateMediaMenu,
+  generateMultiMarkItem: () => generateMultiMarkItem,
+  generateParagraphItem: () => generateParagraphItem,
+  markActive: () => markActive,
+  markItem: () => markItem,
+  menuHelper: () => menuHelper,
+  multiMarkItem: () => multiMarkItem
+});
+
 // node_modules/crelt/index.es.js
 function crelt() {
   var elt = arguments[0];
@@ -10478,6 +10554,24 @@ function joinUp(state, dispatch2) {
       tr.setSelection(NodeSelection.create(tr.doc, point - state.doc.resolve(point).nodeBefore.nodeSize));
     }
     dispatch2(tr.scrollIntoView());
+  }
+  return true;
+}
+function joinDown(state, dispatch2) {
+  var sel = state.selection, point;
+  if (sel instanceof NodeSelection) {
+    if (sel.node.isTextblock || !canJoin(state.doc, sel.to)) {
+      return false;
+    }
+    point = sel.to;
+  } else {
+    point = joinPoint(state.doc, sel.to, 1);
+    if (point == null) {
+      return false;
+    }
+  }
+  if (dispatch2) {
+    dispatch2(state.tr.join(point).scrollIntoView());
   }
   return true;
 }
@@ -10740,6 +10834,21 @@ function selectTextblockSide(side) {
 }
 var selectTextblockStart = selectTextblockSide(-1);
 var selectTextblockEnd = selectTextblockSide(1);
+function wrapIn(nodeType2, attrs) {
+  return function(state, dispatch2) {
+    var ref = state.selection;
+    var $from = ref.$from;
+    var $to = ref.$to;
+    var range = $from.blockRange($to), wrapping = range && findWrapping3(range, nodeType2, attrs);
+    if (!wrapping) {
+      return false;
+    }
+    if (dispatch2) {
+      dispatch2(state.tr.wrap(range, wrapping).scrollIntoView());
+    }
+    return true;
+  };
+}
 function setBlockType(nodeType2, attrs) {
   return function(state, dispatch2) {
     var ref = state.selection;
@@ -10878,6 +10987,7 @@ for (var key in pcBaseKeymap) {
   macBaseKeymap[key] = pcBaseKeymap[key];
 }
 var mac = typeof navigator != "undefined" ? /Mac|iP(hone|[oa]d)/.test(navigator.platform) : typeof os != "undefined" ? os.platform() == "darwin" : false;
+var baseKeymap = mac ? macBaseKeymap : pcBaseKeymap;
 
 // node_modules/rope-sequence/dist/index.es.js
 var GOOD_LEAF_SIZE = 200;
@@ -11110,14 +11220,14 @@ Branch.prototype.popEvent = function popEvent(state, preserveItems) {
     }
     if (remap) {
       addBefore.push(new Item(item.map));
-      var step2 = item.step.map(remap.slice(mapFrom)), map14;
+      var step2 = item.step.map(remap.slice(mapFrom)), map15;
       if (step2 && transform.maybeStep(step2).doc) {
-        map14 = transform.mapping.maps[transform.mapping.maps.length - 1];
-        addAfter.push(new Item(map14, null, null, addAfter.length + addBefore.length));
+        map15 = transform.mapping.maps[transform.mapping.maps.length - 1];
+        addAfter.push(new Item(map15, null, null, addAfter.length + addBefore.length));
       }
       mapFrom--;
-      if (map14) {
-        remap.appendMap(map14, mapFrom);
+      if (map15) {
+        remap.appendMap(map15, mapFrom);
       }
     } else {
       transform.maybeStep(item.step);
@@ -11172,8 +11282,8 @@ Branch.prototype.addMaps = function addMaps(array) {
   if (this.eventCount == 0) {
     return this;
   }
-  return new Branch(this.items.append(array.map(function(map14) {
-    return new Item(map14);
+  return new Branch(this.items.append(array.map(function(map15) {
+    return new Item(map15);
   })), this.eventCount);
 };
 Branch.prototype.rebased = function rebased(rebasedTransform, rebasedCount) {
@@ -11196,16 +11306,16 @@ Branch.prototype.rebased = function rebased(rebasedTransform, rebasedCount) {
       return;
     }
     newUntil = Math.min(newUntil, pos);
-    var map14 = mapping.maps[pos];
+    var map15 = mapping.maps[pos];
     if (item.step) {
       var step2 = rebasedTransform.steps[pos].invert(rebasedTransform.docs[pos]);
       var selection = item.selection && item.selection.map(mapping.slice(iRebased + 1, pos));
       if (selection) {
         eventCount++;
       }
-      rebasedItems.push(new Item(map14, step2, selection));
+      rebasedItems.push(new Item(map15, step2, selection));
     } else {
-      rebasedItems.push(new Item(map14));
+      rebasedItems.push(new Item(map15));
     }
   }, start3);
   var newMaps = [];
@@ -11240,17 +11350,17 @@ Branch.prototype.compress = function compress(upto) {
         events++;
       }
     } else if (item.step) {
-      var step2 = item.step.map(remap.slice(mapFrom)), map14 = step2 && step2.getMap();
+      var step2 = item.step.map(remap.slice(mapFrom)), map15 = step2 && step2.getMap();
       mapFrom--;
-      if (map14) {
-        remap.appendMap(map14, mapFrom);
+      if (map15) {
+        remap.appendMap(map15, mapFrom);
       }
       if (step2) {
         var selection = item.selection && item.selection.map(remap.slice(mapFrom));
         if (selection) {
           events++;
         }
-        var newItem = new Item(map14.invert(), step2, selection), merged, last = items.length - 1;
+        var newItem = new Item(map15.invert(), step2, selection), merged, last = items.length - 1;
         if (merged = items.length && items[last].merge(newItem)) {
           items[last] = merged;
         } else {
@@ -11274,8 +11384,8 @@ function cutOffEvents(items, n) {
   });
   return items.slice(cutPoint);
 }
-var Item = function Item2(map14, step2, selection, mirrorOffset) {
-  this.map = map14;
+var Item = function Item2(map15, step2, selection, mirrorOffset) {
+  this.map = map15;
   this.step = step2;
   this.selection = selection;
   this.mirrorOffset = mirrorOffset;
@@ -11295,14 +11405,78 @@ var HistoryState = function HistoryState2(done2, undone, prevRanges, prevTime) {
   this.prevTime = prevTime;
 };
 var DEPTH_OVERFLOW = 20;
-function histTransaction(history, state, dispatch2, redo2) {
+function applyTransaction2(history2, state, tr, options) {
+  var historyTr = tr.getMeta(historyKey), rebased2;
+  if (historyTr) {
+    return historyTr.historyState;
+  }
+  if (tr.getMeta(closeHistoryKey)) {
+    history2 = new HistoryState(history2.done, history2.undone, null, 0);
+  }
+  var appended = tr.getMeta("appendedTransaction");
+  if (tr.steps.length == 0) {
+    return history2;
+  } else if (appended && appended.getMeta(historyKey)) {
+    if (appended.getMeta(historyKey).redo) {
+      return new HistoryState(history2.done.addTransform(tr, null, options, mustPreserveItems(state)), history2.undone, rangesFor(tr.mapping.maps[tr.steps.length - 1]), history2.prevTime);
+    } else {
+      return new HistoryState(history2.done, history2.undone.addTransform(tr, null, options, mustPreserveItems(state)), null, history2.prevTime);
+    }
+  } else if (tr.getMeta("addToHistory") !== false && !(appended && appended.getMeta("addToHistory") === false)) {
+    var newGroup = history2.prevTime == 0 || !appended && (history2.prevTime < (tr.time || 0) - options.newGroupDelay || !isAdjacentTo(tr, history2.prevRanges));
+    var prevRanges = appended ? mapRanges(history2.prevRanges, tr.mapping) : rangesFor(tr.mapping.maps[tr.steps.length - 1]);
+    return new HistoryState(history2.done.addTransform(tr, newGroup ? state.selection.getBookmark() : null, options, mustPreserveItems(state)), Branch.empty, prevRanges, tr.time);
+  } else if (rebased2 = tr.getMeta("rebased")) {
+    return new HistoryState(history2.done.rebased(tr, rebased2), history2.undone.rebased(tr, rebased2), mapRanges(history2.prevRanges, tr.mapping), history2.prevTime);
+  } else {
+    return new HistoryState(history2.done.addMaps(tr.mapping.maps), history2.undone.addMaps(tr.mapping.maps), mapRanges(history2.prevRanges, tr.mapping), history2.prevTime);
+  }
+}
+function isAdjacentTo(transform, prevRanges) {
+  if (!prevRanges) {
+    return false;
+  }
+  if (!transform.docChanged) {
+    return true;
+  }
+  var adjacent = false;
+  transform.mapping.maps[0].forEach(function(start3, end2) {
+    for (var i = 0; i < prevRanges.length; i += 2) {
+      if (start3 <= prevRanges[i + 1] && end2 >= prevRanges[i]) {
+        adjacent = true;
+      }
+    }
+  });
+  return adjacent;
+}
+function rangesFor(map15) {
+  var result2 = [];
+  map15.forEach(function(_from, _to, from4, to) {
+    return result2.push(from4, to);
+  });
+  return result2;
+}
+function mapRanges(ranges, mapping) {
+  if (!ranges) {
+    return null;
+  }
+  var result2 = [];
+  for (var i = 0; i < ranges.length; i += 2) {
+    var from4 = mapping.map(ranges[i], 1), to = mapping.map(ranges[i + 1], -1);
+    if (from4 <= to) {
+      result2.push(from4, to);
+    }
+  }
+  return result2;
+}
+function histTransaction(history2, state, dispatch2, redo2) {
   var preserveItems = mustPreserveItems(state), histOptions = historyKey.get(state).spec.config;
-  var pop = (redo2 ? history.undone : history.done).popEvent(state, preserveItems);
+  var pop = (redo2 ? history2.undone : history2.done).popEvent(state, preserveItems);
   if (!pop) {
     return;
   }
   var selection = pop.selection.resolve(pop.transform.doc);
-  var added = (redo2 ? history.done : history.undone).addTransform(pop.transform, state.selection.getBookmark(), histOptions, preserveItems);
+  var added = (redo2 ? history2.done : history2.undone).addTransform(pop.transform, state.selection.getBookmark(), histOptions, preserveItems);
   var newHist = new HistoryState(redo2 ? added : pop.remaining, redo2 ? pop.remaining : added, null, 0);
   dispatch2(pop.transform.setSelection(selection).setMeta(historyKey, { redo: redo2, historyState: newHist }).scrollIntoView());
 }
@@ -11324,6 +11498,35 @@ function mustPreserveItems(state) {
 }
 var historyKey = new PluginKey("history");
 var closeHistoryKey = new PluginKey("closeHistory");
+function history(config) {
+  config = {
+    depth: config && config.depth || 100,
+    newGroupDelay: config && config.newGroupDelay || 500
+  };
+  return new Plugin({
+    key: historyKey,
+    state: {
+      init: function init5() {
+        return new HistoryState(Branch.empty, Branch.empty, null, 0);
+      },
+      apply: function apply8(tr, hist, state) {
+        return applyTransaction2(hist, state, tr, config);
+      }
+    },
+    config,
+    props: {
+      handleDOMEvents: {
+        beforeinput: function beforeinput2(view, e) {
+          var handled = e.inputType == "historyUndo" ? undo(view.state, view.dispatch) : e.inputType == "historyRedo" ? redo(view.state, view.dispatch) : false;
+          if (handled) {
+            e.preventDefault();
+          }
+          return handled;
+        }
+      }
+    }
+  });
+}
 function undo(state, dispatch2) {
   var hist = historyKey.getState(state);
   if (!hist || hist.done.eventCount == 0) {
@@ -11419,7 +11622,7 @@ MenuItem.prototype.render = function render(view) {
       spec.run(view.state, view.dispatch, view, e);
     }
   });
-  function update3(state) {
+  function update4(state) {
     if (spec.select) {
       var selected = spec.select(state);
       dom.style.display = selected ? "" : "none";
@@ -11438,7 +11641,7 @@ MenuItem.prototype.render = function render(view) {
     }
     return true;
   }
-  return { dom, update: update3 };
+  return { dom, update: update4 };
 };
 function translate(view, text2) {
   return view._props.translate ? view._props.translate(text2) : text2;
@@ -11487,12 +11690,12 @@ Dropdown.prototype.render = function render2(view) {
       });
     }
   });
-  function update3(state) {
+  function update4(state) {
     var inner = content2.update(state);
     wrap.style.display = inner ? "" : "none";
     return inner;
   }
-  return { dom: wrap, update: update3 };
+  return { dom: wrap, update: update4 };
 };
 Dropdown.prototype.expand = function expand(dom, items) {
   var menuDOM = crelt("div", { class: prefix$1 + "-dropdown-menu " + (this.options.class || "") }, items);
@@ -11513,9 +11716,9 @@ function renderDropdownItems(items, view) {
   for (var i = 0; i < items.length; i++) {
     var ref = items[i].render(view);
     var dom = ref.dom;
-    var update3 = ref.update;
+    var update4 = ref.update;
     rendered.push(crelt("div", { class: prefix$1 + "-dropdown-item" }, dom));
-    updates.push(update3);
+    updates.push(update4);
   }
   return { dom: rendered, update: combineUpdates(updates, rendered) };
 }
@@ -11555,12 +11758,12 @@ DropdownSubmenu.prototype.render = function render3(view) {
       });
     }
   });
-  function update3(state) {
+  function update4(state) {
     var inner = items.update(state);
     wrap.style.display = inner ? "" : "none";
     return inner;
   }
-  return { dom: wrap, update: update3 };
+  return { dom: wrap, update: update4 };
 };
 function renderGrouped(view, content2) {
   var result2 = document.createDocumentFragment();
@@ -11583,7 +11786,7 @@ function renderGrouped(view, content2) {
       }
     }
   }
-  function update3(state) {
+  function update4(state) {
     var something = false, needSep = false;
     for (var i2 = 0; i2 < updates.length; i2++) {
       var hasContent = updates[i2](state);
@@ -11597,7 +11800,7 @@ function renderGrouped(view, content2) {
     }
     return something;
   }
-  return { dom: result2, update: update3 };
+  return { dom: result2, update: update4 };
 }
 function separator() {
   return crelt("span", { class: prefix$1 + "separator" });
@@ -11700,6 +11903,20 @@ var redoItem = new MenuItem({
   },
   icon: icons.redo
 });
+function wrapItem(nodeType2, options) {
+  var passedOptions = {
+    run: function run2(state, dispatch2) {
+      return wrapIn(nodeType2, options.attrs)(state, dispatch2);
+    },
+    select: function select(state) {
+      return wrapIn(nodeType2, options.attrs instanceof Function ? null : options.attrs)(state);
+    }
+  };
+  for (var prop in options) {
+    passedOptions[prop] = options[prop];
+  }
+  return new MenuItem(passedOptions);
+}
 function blockTypeItem(nodeType2, options) {
   var command = setBlockType(nodeType2, options.attrs);
   var passedOptions = {
@@ -11738,6 +11955,13 @@ function isIOS() {
   var agent = navigator.userAgent;
   return !/Edge\/\d/.test(agent) && /AppleWebKit/.test(agent) && /Mobile\/\w+/.test(agent);
 }
+function menuBar(options) {
+  return new Plugin({
+    view: function view(editorView) {
+      return new MenuBarView(editorView, options);
+    }
+  });
+}
 var MenuBarView = function MenuBarView2(editorView, options) {
   var this$1 = this;
   this.editorView = editorView;
@@ -11753,8 +11977,8 @@ var MenuBarView = function MenuBarView2(editorView, options) {
   this.floating = false;
   var ref = renderGrouped(this.editorView, this.options.content);
   var dom = ref.dom;
-  var update3 = ref.update;
-  this.contentUpdate = update3;
+  var update4 = ref.update;
+  this.contentUpdate = update4;
   this.menu.appendChild(dom);
   this.update();
   if (options.floating && !isIOS()) {
@@ -12121,16 +12345,16 @@ function inlineDoc(blocks2, inline2) {
   return inline2 ? { content: "block?" } : blocks2.doc;
 }
 var generateExProsemirorBlocks = (blocksSelection, blocks2, inline2) => {
-  const map14 = {
+  const map15 = {
     text: blocks2.text,
     doc: inlineDoc(blocks2, inline2)
   };
   blocksSelection.map((element) => {
     if (blocks2[element.type]) {
-      map14[element.type] = __spreadProps(__spreadValues({}, blocks2[element.type]), { config: element });
+      map15[element.type] = __spreadProps(__spreadValues({}, blocks2[element.type]), { config: element });
     }
   });
-  return map14;
+  return map15;
 };
 
 // js/prosemirror/blocks/index.js
@@ -12241,6 +12465,1410 @@ var ExEditorView = class {
     input.dispatchEvent(new CustomEvent("change", { detail: JSON.parse(input.value) }));
     this.editorView.updateState(newState);
   }
+};
+
+// node_modules/w3c-keyname/index.es.js
+var base = {
+  8: "Backspace",
+  9: "Tab",
+  10: "Enter",
+  12: "NumLock",
+  13: "Enter",
+  16: "Shift",
+  17: "Control",
+  18: "Alt",
+  20: "CapsLock",
+  27: "Escape",
+  32: " ",
+  33: "PageUp",
+  34: "PageDown",
+  35: "End",
+  36: "Home",
+  37: "ArrowLeft",
+  38: "ArrowUp",
+  39: "ArrowRight",
+  40: "ArrowDown",
+  44: "PrintScreen",
+  45: "Insert",
+  46: "Delete",
+  59: ";",
+  61: "=",
+  91: "Meta",
+  92: "Meta",
+  106: "*",
+  107: "+",
+  108: ",",
+  109: "-",
+  110: ".",
+  111: "/",
+  144: "NumLock",
+  145: "ScrollLock",
+  160: "Shift",
+  161: "Shift",
+  162: "Control",
+  163: "Control",
+  164: "Alt",
+  165: "Alt",
+  173: "-",
+  186: ";",
+  187: "=",
+  188: ",",
+  189: "-",
+  190: ".",
+  191: "/",
+  192: "`",
+  219: "[",
+  220: "\\",
+  221: "]",
+  222: "'",
+  229: "q"
+};
+var shift = {
+  48: ")",
+  49: "!",
+  50: "@",
+  51: "#",
+  52: "$",
+  53: "%",
+  54: "^",
+  55: "&",
+  56: "*",
+  57: "(",
+  59: ":",
+  61: "+",
+  173: "_",
+  186: ":",
+  187: "+",
+  188: "<",
+  189: "_",
+  190: ">",
+  191: "?",
+  192: "~",
+  219: "{",
+  220: "|",
+  221: "}",
+  222: '"',
+  229: "Q"
+};
+var chrome = typeof navigator != "undefined" && /Chrome\/(\d+)/.exec(navigator.userAgent);
+var safari = typeof navigator != "undefined" && /Apple Computer/.test(navigator.vendor);
+var gecko = typeof navigator != "undefined" && /Gecko\/\d+/.test(navigator.userAgent);
+var mac2 = typeof navigator != "undefined" && /Mac/.test(navigator.platform);
+var ie = typeof navigator != "undefined" && /MSIE \d|Trident\/(?:[7-9]|\d{2,})\..*rv:(\d+)/.exec(navigator.userAgent);
+var brokenModifierNames = chrome && (mac2 || +chrome[1] < 57) || gecko && mac2;
+for (var i = 0; i < 10; i++)
+  base[48 + i] = base[96 + i] = String(i);
+for (var i = 1; i <= 24; i++)
+  base[i + 111] = "F" + i;
+for (var i = 65; i <= 90; i++) {
+  base[i] = String.fromCharCode(i + 32);
+  shift[i] = String.fromCharCode(i);
+}
+for (var code in base)
+  if (!shift.hasOwnProperty(code))
+    shift[code] = base[code];
+function keyName(event) {
+  var ignoreKey = brokenModifierNames && (event.ctrlKey || event.altKey || event.metaKey) || (safari || ie) && event.shiftKey && event.key && event.key.length == 1;
+  var name = !ignoreKey && event.key || (event.shiftKey ? shift : base)[event.keyCode] || event.key || "Unidentified";
+  if (name == "Esc")
+    name = "Escape";
+  if (name == "Del")
+    name = "Delete";
+  if (name == "Left")
+    name = "ArrowLeft";
+  if (name == "Up")
+    name = "ArrowUp";
+  if (name == "Right")
+    name = "ArrowRight";
+  if (name == "Down")
+    name = "ArrowDown";
+  return name;
+}
+
+// node_modules/prosemirror-keymap/dist/index.es.js
+var mac3 = typeof navigator != "undefined" ? /Mac|iP(hone|[oa]d)/.test(navigator.platform) : false;
+function normalizeKeyName(name) {
+  var parts = name.split(/-(?!$)/), result2 = parts[parts.length - 1];
+  if (result2 == "Space") {
+    result2 = " ";
+  }
+  var alt, ctrl, shift2, meta;
+  for (var i = 0; i < parts.length - 1; i++) {
+    var mod = parts[i];
+    if (/^(cmd|meta|m)$/i.test(mod)) {
+      meta = true;
+    } else if (/^a(lt)?$/i.test(mod)) {
+      alt = true;
+    } else if (/^(c|ctrl|control)$/i.test(mod)) {
+      ctrl = true;
+    } else if (/^s(hift)?$/i.test(mod)) {
+      shift2 = true;
+    } else if (/^mod$/i.test(mod)) {
+      if (mac3) {
+        meta = true;
+      } else {
+        ctrl = true;
+      }
+    } else {
+      throw new Error("Unrecognized modifier name: " + mod);
+    }
+  }
+  if (alt) {
+    result2 = "Alt-" + result2;
+  }
+  if (ctrl) {
+    result2 = "Ctrl-" + result2;
+  }
+  if (meta) {
+    result2 = "Meta-" + result2;
+  }
+  if (shift2) {
+    result2 = "Shift-" + result2;
+  }
+  return result2;
+}
+function normalize(map15) {
+  var copy5 = Object.create(null);
+  for (var prop in map15) {
+    copy5[normalizeKeyName(prop)] = map15[prop];
+  }
+  return copy5;
+}
+function modifiers(name, event, shift2) {
+  if (event.altKey) {
+    name = "Alt-" + name;
+  }
+  if (event.ctrlKey) {
+    name = "Ctrl-" + name;
+  }
+  if (event.metaKey) {
+    name = "Meta-" + name;
+  }
+  if (shift2 !== false && event.shiftKey) {
+    name = "Shift-" + name;
+  }
+  return name;
+}
+function keymap(bindings) {
+  return new Plugin({ props: { handleKeyDown: keydownHandler(bindings) } });
+}
+function keydownHandler(bindings) {
+  var map15 = normalize(bindings);
+  return function(view, event) {
+    var name = keyName(event), isChar = name.length == 1 && name != " ", baseName;
+    var direct = map15[modifiers(name, event, !isChar)];
+    if (direct && direct(view.state, view.dispatch, view)) {
+      return true;
+    }
+    if (isChar && (event.shiftKey || event.altKey || event.metaKey || name.charCodeAt(0) > 127) && (baseName = base[event.keyCode]) && baseName != name) {
+      var fromCode = map15[modifiers(baseName, event, true)];
+      if (fromCode && fromCode(view.state, view.dispatch, view)) {
+        return true;
+      }
+    } else if (isChar && event.shiftKey) {
+      var withShift = map15[modifiers(name, event, true)];
+      if (withShift && withShift(view.state, view.dispatch, view)) {
+        return true;
+      }
+    }
+    return false;
+  };
+}
+
+// node_modules/prosemirror-dropcursor/dist/index.es.js
+function dropCursor(options) {
+  if (options === void 0)
+    options = {};
+  return new Plugin({
+    view: function view(editorView) {
+      return new DropCursorView(editorView, options);
+    }
+  });
+}
+var DropCursorView = function DropCursorView2(editorView, options) {
+  var this$1 = this;
+  this.editorView = editorView;
+  this.width = options.width || 1;
+  this.color = options.color || "black";
+  this.class = options.class;
+  this.cursorPos = null;
+  this.element = null;
+  this.timeout = null;
+  this.handlers = ["dragover", "dragend", "drop", "dragleave"].map(function(name) {
+    var handler = function(e) {
+      return this$1[name](e);
+    };
+    editorView.dom.addEventListener(name, handler);
+    return { name, handler };
+  });
+};
+DropCursorView.prototype.destroy = function destroy5() {
+  var this$1 = this;
+  this.handlers.forEach(function(ref) {
+    var name = ref.name;
+    var handler = ref.handler;
+    return this$1.editorView.dom.removeEventListener(name, handler);
+  });
+};
+DropCursorView.prototype.update = function update3(editorView, prevState) {
+  if (this.cursorPos != null && prevState.doc != editorView.state.doc) {
+    if (this.cursorPos > editorView.state.doc.content.size) {
+      this.setCursor(null);
+    } else {
+      this.updateOverlay();
+    }
+  }
+};
+DropCursorView.prototype.setCursor = function setCursor(pos) {
+  if (pos == this.cursorPos) {
+    return;
+  }
+  this.cursorPos = pos;
+  if (pos == null) {
+    this.element.parentNode.removeChild(this.element);
+    this.element = null;
+  } else {
+    this.updateOverlay();
+  }
+};
+DropCursorView.prototype.updateOverlay = function updateOverlay() {
+  var $pos = this.editorView.state.doc.resolve(this.cursorPos), rect;
+  if (!$pos.parent.inlineContent) {
+    var before2 = $pos.nodeBefore, after2 = $pos.nodeAfter;
+    if (before2 || after2) {
+      var nodeRect = this.editorView.nodeDOM(this.cursorPos - (before2 ? before2.nodeSize : 0)).getBoundingClientRect();
+      var top = before2 ? nodeRect.bottom : nodeRect.top;
+      if (before2 && after2) {
+        top = (top + this.editorView.nodeDOM(this.cursorPos).getBoundingClientRect().top) / 2;
+      }
+      rect = { left: nodeRect.left, right: nodeRect.right, top: top - this.width / 2, bottom: top + this.width / 2 };
+    }
+  }
+  if (!rect) {
+    var coords = this.editorView.coordsAtPos(this.cursorPos);
+    rect = { left: coords.left - this.width / 2, right: coords.left + this.width / 2, top: coords.top, bottom: coords.bottom };
+  }
+  var parent = this.editorView.dom.offsetParent;
+  if (!this.element) {
+    this.element = parent.appendChild(document.createElement("div"));
+    if (this.class) {
+      this.element.className = this.class;
+    }
+    this.element.style.cssText = "position: absolute; z-index: 50; pointer-events: none; background-color: " + this.color;
+  }
+  var parentLeft, parentTop;
+  if (!parent || parent == document.body && getComputedStyle(parent).position == "static") {
+    parentLeft = -pageXOffset;
+    parentTop = -pageYOffset;
+  } else {
+    var rect$1 = parent.getBoundingClientRect();
+    parentLeft = rect$1.left - parent.scrollLeft;
+    parentTop = rect$1.top - parent.scrollTop;
+  }
+  this.element.style.left = rect.left - parentLeft + "px";
+  this.element.style.top = rect.top - parentTop + "px";
+  this.element.style.width = rect.right - rect.left + "px";
+  this.element.style.height = rect.bottom - rect.top + "px";
+};
+DropCursorView.prototype.scheduleRemoval = function scheduleRemoval(timeout) {
+  var this$1 = this;
+  clearTimeout(this.timeout);
+  this.timeout = setTimeout(function() {
+    return this$1.setCursor(null);
+  }, timeout);
+};
+DropCursorView.prototype.dragover = function dragover(event) {
+  if (!this.editorView.editable) {
+    return;
+  }
+  var pos = this.editorView.posAtCoords({ left: event.clientX, top: event.clientY });
+  var node4 = pos && pos.inside >= 0 && this.editorView.state.doc.nodeAt(pos.inside);
+  var disableDropCursor = node4 && node4.type.spec.disableDropCursor;
+  var disabled = typeof disableDropCursor == "function" ? disableDropCursor(this.editorView, pos) : disableDropCursor;
+  if (pos && !disabled) {
+    var target = pos.pos;
+    if (this.editorView.dragging && this.editorView.dragging.slice) {
+      target = dropPoint(this.editorView.state.doc, target, this.editorView.dragging.slice);
+      if (target == null) {
+        return this.setCursor(null);
+      }
+    }
+    this.setCursor(target);
+    this.scheduleRemoval(5e3);
+  }
+};
+DropCursorView.prototype.dragend = function dragend() {
+  this.scheduleRemoval(20);
+};
+DropCursorView.prototype.drop = function drop() {
+  this.scheduleRemoval(20);
+};
+DropCursorView.prototype.dragleave = function dragleave(event) {
+  if (event.target == this.editorView.dom || !this.editorView.dom.contains(event.relatedTarget)) {
+    this.setCursor(null);
+  }
+};
+
+// node_modules/prosemirror-gapcursor/dist/index.es.js
+var GapCursor = /* @__PURE__ */ function(Selection3) {
+  function GapCursor2($pos) {
+    Selection3.call(this, $pos, $pos);
+  }
+  if (Selection3)
+    GapCursor2.__proto__ = Selection3;
+  GapCursor2.prototype = Object.create(Selection3 && Selection3.prototype);
+  GapCursor2.prototype.constructor = GapCursor2;
+  GapCursor2.prototype.map = function map15(doc2, mapping) {
+    var $pos = doc2.resolve(mapping.map(this.head));
+    return GapCursor2.valid($pos) ? new GapCursor2($pos) : Selection3.near($pos);
+  };
+  GapCursor2.prototype.content = function content2() {
+    return Slice.empty;
+  };
+  GapCursor2.prototype.eq = function eq12(other) {
+    return other instanceof GapCursor2 && other.head == this.head;
+  };
+  GapCursor2.prototype.toJSON = function toJSON7() {
+    return { type: "gapcursor", pos: this.head };
+  };
+  GapCursor2.fromJSON = function fromJSON8(doc2, json) {
+    if (typeof json.pos != "number") {
+      throw new RangeError("Invalid input for GapCursor.fromJSON");
+    }
+    return new GapCursor2(doc2.resolve(json.pos));
+  };
+  GapCursor2.prototype.getBookmark = function getBookmark2() {
+    return new GapBookmark(this.anchor);
+  };
+  GapCursor2.valid = function valid4($pos) {
+    var parent = $pos.parent;
+    if (parent.isTextblock || !closedBefore($pos) || !closedAfter($pos)) {
+      return false;
+    }
+    var override = parent.type.spec.allowGapCursor;
+    if (override != null) {
+      return override;
+    }
+    var deflt = parent.contentMatchAt($pos.index()).defaultType;
+    return deflt && deflt.isTextblock;
+  };
+  GapCursor2.findFrom = function findFrom2($pos, dir, mustMove) {
+    search:
+      for (; ; ) {
+        if (!mustMove && GapCursor2.valid($pos)) {
+          return $pos;
+        }
+        var pos = $pos.pos, next = null;
+        for (var d = $pos.depth; ; d--) {
+          var parent = $pos.node(d);
+          if (dir > 0 ? $pos.indexAfter(d) < parent.childCount : $pos.index(d) > 0) {
+            next = parent.child(dir > 0 ? $pos.indexAfter(d) : $pos.index(d) - 1);
+            break;
+          } else if (d == 0) {
+            return null;
+          }
+          pos += dir;
+          var $cur = $pos.doc.resolve(pos);
+          if (GapCursor2.valid($cur)) {
+            return $cur;
+          }
+        }
+        for (; ; ) {
+          var inside = dir > 0 ? next.firstChild : next.lastChild;
+          if (!inside) {
+            if (next.isAtom && !next.isText && !NodeSelection.isSelectable(next)) {
+              $pos = $pos.doc.resolve(pos + next.nodeSize * dir);
+              mustMove = false;
+              continue search;
+            }
+            break;
+          }
+          next = inside;
+          pos += dir;
+          var $cur$1 = $pos.doc.resolve(pos);
+          if (GapCursor2.valid($cur$1)) {
+            return $cur$1;
+          }
+        }
+        return null;
+      }
+  };
+  return GapCursor2;
+}(Selection);
+GapCursor.prototype.visible = false;
+Selection.jsonID("gapcursor", GapCursor);
+var GapBookmark = function GapBookmark2(pos) {
+  this.pos = pos;
+};
+GapBookmark.prototype.map = function map14(mapping) {
+  return new GapBookmark(mapping.map(this.pos));
+};
+GapBookmark.prototype.resolve = function resolve6(doc2) {
+  var $pos = doc2.resolve(this.pos);
+  return GapCursor.valid($pos) ? new GapCursor($pos) : Selection.near($pos);
+};
+function closedBefore($pos) {
+  for (var d = $pos.depth; d >= 0; d--) {
+    var index2 = $pos.index(d), parent = $pos.node(d);
+    if (index2 == 0) {
+      if (parent.type.spec.isolating) {
+        return true;
+      }
+      continue;
+    }
+    for (var before2 = parent.child(index2 - 1); ; before2 = before2.lastChild) {
+      if (before2.childCount == 0 && !before2.inlineContent || before2.isAtom || before2.type.spec.isolating) {
+        return true;
+      }
+      if (before2.inlineContent) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+function closedAfter($pos) {
+  for (var d = $pos.depth; d >= 0; d--) {
+    var index2 = $pos.indexAfter(d), parent = $pos.node(d);
+    if (index2 == parent.childCount) {
+      if (parent.type.spec.isolating) {
+        return true;
+      }
+      continue;
+    }
+    for (var after2 = parent.child(index2); ; after2 = after2.firstChild) {
+      if (after2.childCount == 0 && !after2.inlineContent || after2.isAtom || after2.type.spec.isolating) {
+        return true;
+      }
+      if (after2.inlineContent) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+var gapCursor = function() {
+  return new Plugin({
+    props: {
+      decorations: drawGapCursor,
+      createSelectionBetween: function createSelectionBetween(_view, $anchor, $head) {
+        if ($anchor.pos == $head.pos && GapCursor.valid($head)) {
+          return new GapCursor($head);
+        }
+      },
+      handleClick,
+      handleKeyDown,
+      handleDOMEvents: { beforeinput }
+    }
+  });
+};
+var handleKeyDown = keydownHandler({
+  "ArrowLeft": arrow("horiz", -1),
+  "ArrowRight": arrow("horiz", 1),
+  "ArrowUp": arrow("vert", -1),
+  "ArrowDown": arrow("vert", 1)
+});
+function arrow(axis, dir) {
+  var dirStr = axis == "vert" ? dir > 0 ? "down" : "up" : dir > 0 ? "right" : "left";
+  return function(state, dispatch2, view) {
+    var sel = state.selection;
+    var $start = dir > 0 ? sel.$to : sel.$from, mustMove = sel.empty;
+    if (sel instanceof TextSelection) {
+      if (!view.endOfTextblock(dirStr) || $start.depth == 0) {
+        return false;
+      }
+      mustMove = false;
+      $start = state.doc.resolve(dir > 0 ? $start.after() : $start.before());
+    }
+    var $found = GapCursor.findFrom($start, dir, mustMove);
+    if (!$found) {
+      return false;
+    }
+    if (dispatch2) {
+      dispatch2(state.tr.setSelection(new GapCursor($found)));
+    }
+    return true;
+  };
+}
+function handleClick(view, pos, event) {
+  if (!view.editable) {
+    return false;
+  }
+  var $pos = view.state.doc.resolve(pos);
+  if (!GapCursor.valid($pos)) {
+    return false;
+  }
+  var ref = view.posAtCoords({ left: event.clientX, top: event.clientY });
+  var inside = ref.inside;
+  if (inside > -1 && NodeSelection.isSelectable(view.state.doc.nodeAt(inside))) {
+    return false;
+  }
+  view.dispatch(view.state.tr.setSelection(new GapCursor($pos)));
+  return true;
+}
+function beforeinput(view, event) {
+  if (event.inputType != "insertCompositionText" || !(view.state.selection instanceof GapCursor)) {
+    return false;
+  }
+  var ref = view.state.selection;
+  var $from = ref.$from;
+  var insert = $from.parent.contentMatchAt($from.index()).findWrapping(view.state.schema.nodes.text);
+  if (!insert) {
+    return false;
+  }
+  var frag = Fragment.empty;
+  for (var i = insert.length - 1; i >= 0; i--) {
+    frag = Fragment.from(insert[i].createAndFill(null, frag));
+  }
+  var tr = view.state.tr.replace($from.pos, $from.pos, new Slice(frag, 0, 0));
+  tr.setSelection(TextSelection.near(tr.doc.resolve($from.pos + 1)));
+  view.dispatch(tr);
+  return false;
+}
+function drawGapCursor(state) {
+  if (!(state.selection instanceof GapCursor)) {
+    return null;
+  }
+  var node4 = document.createElement("div");
+  node4.className = "ProseMirror-gapcursor";
+  return DecorationSet.create(state.doc, [Decoration.widget(state.selection.head, node4, { key: "gapcursor" })]);
+}
+
+// node_modules/prosemirror-schema-list/dist/index.es.js
+function wrapInList(listType, attrs) {
+  return function(state, dispatch2) {
+    var ref = state.selection;
+    var $from = ref.$from;
+    var $to = ref.$to;
+    var range = $from.blockRange($to), doJoin = false, outerRange = range;
+    if (!range) {
+      return false;
+    }
+    if (range.depth >= 2 && $from.node(range.depth - 1).type.compatibleContent(listType) && range.startIndex == 0) {
+      if ($from.index(range.depth - 1) == 0) {
+        return false;
+      }
+      var $insert = state.doc.resolve(range.start - 2);
+      outerRange = new NodeRange($insert, $insert, range.depth);
+      if (range.endIndex < range.parent.childCount) {
+        range = new NodeRange($from, state.doc.resolve($to.end(range.depth)), range.depth);
+      }
+      doJoin = true;
+    }
+    var wrap = findWrapping3(outerRange, listType, attrs, range);
+    if (!wrap) {
+      return false;
+    }
+    if (dispatch2) {
+      dispatch2(doWrapInList(state.tr, range, wrap, doJoin, listType).scrollIntoView());
+    }
+    return true;
+  };
+}
+function doWrapInList(tr, range, wrappers, joinBefore, listType) {
+  var content2 = Fragment.empty;
+  for (var i = wrappers.length - 1; i >= 0; i--) {
+    content2 = Fragment.from(wrappers[i].type.create(wrappers[i].attrs, content2));
+  }
+  tr.step(new ReplaceAroundStep(range.start - (joinBefore ? 2 : 0), range.end, range.start, range.end, new Slice(content2, 0, 0), wrappers.length, true));
+  var found2 = 0;
+  for (var i$1 = 0; i$1 < wrappers.length; i$1++) {
+    if (wrappers[i$1].type == listType) {
+      found2 = i$1 + 1;
+    }
+  }
+  var splitDepth = wrappers.length - found2;
+  var splitPos = range.start + wrappers.length - (joinBefore ? 2 : 0), parent = range.parent;
+  for (var i$2 = range.startIndex, e = range.endIndex, first = true; i$2 < e; i$2++, first = false) {
+    if (!first && canSplit(tr.doc, splitPos, splitDepth)) {
+      tr.split(splitPos, splitDepth);
+      splitPos += 2 * splitDepth;
+    }
+    splitPos += parent.child(i$2).nodeSize;
+  }
+  return tr;
+}
+function splitListItem(itemType) {
+  return function(state, dispatch2) {
+    var ref = state.selection;
+    var $from = ref.$from;
+    var $to = ref.$to;
+    var node4 = ref.node;
+    if (node4 && node4.isBlock || $from.depth < 2 || !$from.sameParent($to)) {
+      return false;
+    }
+    var grandParent = $from.node(-1);
+    if (grandParent.type != itemType) {
+      return false;
+    }
+    if ($from.parent.content.size == 0 && $from.node(-1).childCount == $from.indexAfter(-1)) {
+      if ($from.depth == 2 || $from.node(-3).type != itemType || $from.index(-2) != $from.node(-2).childCount - 1) {
+        return false;
+      }
+      if (dispatch2) {
+        var wrap = Fragment.empty;
+        var depthBefore = $from.index(-1) ? 1 : $from.index(-2) ? 2 : 3;
+        for (var d = $from.depth - depthBefore; d >= $from.depth - 3; d--) {
+          wrap = Fragment.from($from.node(d).copy(wrap));
+        }
+        var depthAfter = $from.indexAfter(-1) < $from.node(-2).childCount ? 1 : $from.indexAfter(-2) < $from.node(-3).childCount ? 2 : 3;
+        wrap = wrap.append(Fragment.from(itemType.createAndFill()));
+        var start3 = $from.before($from.depth - (depthBefore - 1));
+        var tr$1 = state.tr.replace(start3, $from.after(-depthAfter), new Slice(wrap, 4 - depthBefore, 0));
+        var sel = -1;
+        tr$1.doc.nodesBetween(start3, tr$1.doc.content.size, function(node5, pos) {
+          if (sel > -1) {
+            return false;
+          }
+          if (node5.isTextblock && node5.content.size == 0) {
+            sel = pos + 1;
+          }
+        });
+        if (sel > -1) {
+          tr$1.setSelection(state.selection.constructor.near(tr$1.doc.resolve(sel)));
+        }
+        dispatch2(tr$1.scrollIntoView());
+      }
+      return true;
+    }
+    var nextType = $to.pos == $from.end() ? grandParent.contentMatchAt(0).defaultType : null;
+    var tr = state.tr.delete($from.pos, $to.pos);
+    var types = nextType && [null, { type: nextType }];
+    if (!canSplit(tr.doc, $from.pos, 2, types)) {
+      return false;
+    }
+    if (dispatch2) {
+      dispatch2(tr.split($from.pos, 2, types).scrollIntoView());
+    }
+    return true;
+  };
+}
+function liftListItem(itemType) {
+  return function(state, dispatch2) {
+    var ref = state.selection;
+    var $from = ref.$from;
+    var $to = ref.$to;
+    var range = $from.blockRange($to, function(node4) {
+      return node4.childCount && node4.firstChild.type == itemType;
+    });
+    if (!range) {
+      return false;
+    }
+    if (!dispatch2) {
+      return true;
+    }
+    if ($from.node(range.depth - 1).type == itemType) {
+      return liftToOuterList(state, dispatch2, itemType, range);
+    } else {
+      return liftOutOfList(state, dispatch2, range);
+    }
+  };
+}
+function liftToOuterList(state, dispatch2, itemType, range) {
+  var tr = state.tr, end2 = range.end, endOfList = range.$to.end(range.depth);
+  if (end2 < endOfList) {
+    tr.step(new ReplaceAroundStep(end2 - 1, endOfList, end2, endOfList, new Slice(Fragment.from(itemType.create(null, range.parent.copy())), 1, 0), 1, true));
+    range = new NodeRange(tr.doc.resolve(range.$from.pos), tr.doc.resolve(endOfList), range.depth);
+  }
+  dispatch2(tr.lift(range, liftTarget(range)).scrollIntoView());
+  return true;
+}
+function liftOutOfList(state, dispatch2, range) {
+  var tr = state.tr, list = range.parent;
+  for (var pos = range.end, i = range.endIndex - 1, e = range.startIndex; i > e; i--) {
+    pos -= list.child(i).nodeSize;
+    tr.delete(pos - 1, pos + 1);
+  }
+  var $start = tr.doc.resolve(range.start), item = $start.nodeAfter;
+  if (tr.mapping.map(range.end) != range.start + $start.nodeAfter.nodeSize) {
+    return false;
+  }
+  var atStart2 = range.startIndex == 0, atEnd2 = range.endIndex == list.childCount;
+  var parent = $start.node(-1), indexBefore = $start.index(-1);
+  if (!parent.canReplace(indexBefore + (atStart2 ? 0 : 1), indexBefore + 1, item.content.append(atEnd2 ? Fragment.empty : Fragment.from(list)))) {
+    return false;
+  }
+  var start3 = $start.pos, end2 = start3 + item.nodeSize;
+  tr.step(new ReplaceAroundStep(start3 - (atStart2 ? 1 : 0), end2 + (atEnd2 ? 1 : 0), start3 + 1, end2 - 1, new Slice((atStart2 ? Fragment.empty : Fragment.from(list.copy(Fragment.empty))).append(atEnd2 ? Fragment.empty : Fragment.from(list.copy(Fragment.empty))), atStart2 ? 0 : 1, atEnd2 ? 0 : 1), atStart2 ? 0 : 1));
+  dispatch2(tr.scrollIntoView());
+  return true;
+}
+function sinkListItem(itemType) {
+  return function(state, dispatch2) {
+    var ref = state.selection;
+    var $from = ref.$from;
+    var $to = ref.$to;
+    var range = $from.blockRange($to, function(node4) {
+      return node4.childCount && node4.firstChild.type == itemType;
+    });
+    if (!range) {
+      return false;
+    }
+    var startIndex = range.startIndex;
+    if (startIndex == 0) {
+      return false;
+    }
+    var parent = range.parent, nodeBefore = parent.child(startIndex - 1);
+    if (nodeBefore.type != itemType) {
+      return false;
+    }
+    if (dispatch2) {
+      var nestedBefore = nodeBefore.lastChild && nodeBefore.lastChild.type == parent.type;
+      var inner = Fragment.from(nestedBefore ? itemType.create() : null);
+      var slice4 = new Slice(Fragment.from(itemType.create(null, Fragment.from(parent.type.create(null, inner)))), nestedBefore ? 3 : 1, 0);
+      var before2 = range.start, after2 = range.end;
+      dispatch2(state.tr.step(new ReplaceAroundStep(before2 - (nestedBefore ? 3 : 1), after2, before2, after2, slice4, 1, true)).scrollIntoView());
+    }
+    return true;
+  };
+}
+
+// node_modules/prosemirror-inputrules/dist/index.es.js
+var InputRule = function InputRule2(match, handler) {
+  this.match = match;
+  this.handler = typeof handler == "string" ? stringHandler(handler) : handler;
+};
+function stringHandler(string) {
+  return function(state, match, start3, end2) {
+    var insert = string;
+    if (match[1]) {
+      var offset2 = match[0].lastIndexOf(match[1]);
+      insert += match[0].slice(offset2 + match[1].length);
+      start3 += offset2;
+      var cutOff = start3 - end2;
+      if (cutOff > 0) {
+        insert = match[0].slice(offset2 - cutOff, offset2) + insert;
+        start3 = end2;
+      }
+    }
+    return state.tr.insertText(insert, start3, end2);
+  };
+}
+var MAX_MATCH = 500;
+function inputRules(ref) {
+  var rules = ref.rules;
+  var plugin = new Plugin({
+    state: {
+      init: function init5() {
+        return null;
+      },
+      apply: function apply8(tr, prev) {
+        var stored = tr.getMeta(this);
+        if (stored) {
+          return stored;
+        }
+        return tr.selectionSet || tr.docChanged ? null : prev;
+      }
+    },
+    props: {
+      handleTextInput: function handleTextInput(view, from4, to, text2) {
+        return run(view, from4, to, text2, rules, plugin);
+      },
+      handleDOMEvents: {
+        compositionend: function(view) {
+          setTimeout(function() {
+            var ref2 = view.state.selection;
+            var $cursor = ref2.$cursor;
+            if ($cursor) {
+              run(view, $cursor.pos, $cursor.pos, "", rules, plugin);
+            }
+          });
+        }
+      }
+    },
+    isInputRules: true
+  });
+  return plugin;
+}
+function run(view, from4, to, text2, rules, plugin) {
+  if (view.composing) {
+    return false;
+  }
+  var state = view.state, $from = state.doc.resolve(from4);
+  if ($from.parent.type.spec.code) {
+    return false;
+  }
+  var textBefore = $from.parent.textBetween(Math.max(0, $from.parentOffset - MAX_MATCH), $from.parentOffset, null, "\uFFFC") + text2;
+  for (var i = 0; i < rules.length; i++) {
+    var match = rules[i].match.exec(textBefore);
+    var tr = match && rules[i].handler(state, match, from4 - (match[0].length - text2.length), to);
+    if (!tr) {
+      continue;
+    }
+    view.dispatch(tr.setMeta(plugin, { transform: tr, from: from4, to, text: text2 }));
+    return true;
+  }
+  return false;
+}
+function undoInputRule(state, dispatch2) {
+  var plugins = state.plugins;
+  for (var i = 0; i < plugins.length; i++) {
+    var plugin = plugins[i], undoable = void 0;
+    if (plugin.spec.isInputRules && (undoable = plugin.getState(state))) {
+      if (dispatch2) {
+        var tr = state.tr, toUndo = undoable.transform;
+        for (var j = toUndo.steps.length - 1; j >= 0; j--) {
+          tr.step(toUndo.steps[j].invert(toUndo.docs[j]));
+        }
+        if (undoable.text) {
+          var marks4 = tr.doc.resolve(undoable.from).marks();
+          tr.replaceWith(undoable.from, undoable.to, state.schema.text(undoable.text, marks4));
+        } else {
+          tr.delete(undoable.from, undoable.to);
+        }
+        dispatch2(tr);
+      }
+      return true;
+    }
+  }
+  return false;
+}
+var emDash = new InputRule(/--$/, "\u2014");
+var ellipsis = new InputRule(/\.\.\.$/, "\u2026");
+var openDoubleQuote = new InputRule(/(?:^|[\s\{\[\(\<'"\u2018\u201C])(")$/, "\u201C");
+var closeDoubleQuote = new InputRule(/"$/, "\u201D");
+var openSingleQuote = new InputRule(/(?:^|[\s\{\[\(\<'"\u2018\u201C])(')$/, "\u2018");
+var closeSingleQuote = new InputRule(/'$/, "\u2019");
+var smartQuotes = [openDoubleQuote, closeDoubleQuote, openSingleQuote, closeSingleQuote];
+function wrappingInputRule(regexp, nodeType2, getAttrs3, joinPredicate) {
+  return new InputRule(regexp, function(state, match, start3, end2) {
+    var attrs = getAttrs3 instanceof Function ? getAttrs3(match) : getAttrs3;
+    var tr = state.tr.delete(start3, end2);
+    var $start = tr.doc.resolve(start3), range = $start.blockRange(), wrapping = range && findWrapping3(range, nodeType2, attrs);
+    if (!wrapping) {
+      return null;
+    }
+    tr.wrap(range, wrapping);
+    var before2 = tr.doc.resolve(start3 - 1).nodeBefore;
+    if (before2 && before2.type == nodeType2 && canJoin(tr.doc, start3 - 1) && (!joinPredicate || joinPredicate(match, before2))) {
+      tr.join(start3 - 1);
+    }
+    return tr;
+  });
+}
+function textblockTypeInputRule(regexp, nodeType2, getAttrs3) {
+  return new InputRule(regexp, function(state, match, start3, end2) {
+    var $start = state.doc.resolve(start3);
+    var attrs = getAttrs3 instanceof Function ? getAttrs3(match) : getAttrs3;
+    if (!$start.node(-1).canReplaceWith($start.index(-1), $start.indexAfter(-1), nodeType2)) {
+      return null;
+    }
+    return state.tr.delete(start3, end2).setBlockType(start3, start3, nodeType2, attrs);
+  });
+}
+
+// node_modules/prosemirror-example-setup/dist/index.es.js
+var prefix2 = "ProseMirror-prompt";
+function openPrompt(options) {
+  var wrapper = document.body.appendChild(document.createElement("div"));
+  wrapper.className = prefix2;
+  var mouseOutside = function(e) {
+    if (!wrapper.contains(e.target)) {
+      close3();
+    }
+  };
+  setTimeout(function() {
+    return window.addEventListener("mousedown", mouseOutside);
+  }, 50);
+  var close3 = function() {
+    window.removeEventListener("mousedown", mouseOutside);
+    if (wrapper.parentNode) {
+      wrapper.parentNode.removeChild(wrapper);
+    }
+  };
+  var domFields = [];
+  for (var name in options.fields) {
+    domFields.push(options.fields[name].render());
+  }
+  var submitButton = document.createElement("button");
+  submitButton.type = "submit";
+  submitButton.className = prefix2 + "-submit";
+  submitButton.textContent = "OK";
+  var cancelButton = document.createElement("button");
+  cancelButton.type = "button";
+  cancelButton.className = prefix2 + "-cancel";
+  cancelButton.textContent = "Cancel";
+  cancelButton.addEventListener("click", close3);
+  var form = wrapper.appendChild(document.createElement("form"));
+  if (options.title) {
+    form.appendChild(document.createElement("h5")).textContent = options.title;
+  }
+  domFields.forEach(function(field) {
+    form.appendChild(document.createElement("div")).appendChild(field);
+  });
+  var buttons = form.appendChild(document.createElement("div"));
+  buttons.className = prefix2 + "-buttons";
+  buttons.appendChild(submitButton);
+  buttons.appendChild(document.createTextNode(" "));
+  buttons.appendChild(cancelButton);
+  var box = wrapper.getBoundingClientRect();
+  wrapper.style.top = (window.innerHeight - box.height) / 2 + "px";
+  wrapper.style.left = (window.innerWidth - box.width) / 2 + "px";
+  var submit = function() {
+    var params = getValues(options.fields, domFields);
+    if (params) {
+      close3();
+      options.callback(params);
+    }
+  };
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    submit();
+  });
+  form.addEventListener("keydown", function(e) {
+    if (e.keyCode == 27) {
+      e.preventDefault();
+      close3();
+    } else if (e.keyCode == 13 && !(e.ctrlKey || e.metaKey || e.shiftKey)) {
+      e.preventDefault();
+      submit();
+    } else if (e.keyCode == 9) {
+      window.setTimeout(function() {
+        if (!wrapper.contains(document.activeElement)) {
+          close3();
+        }
+      }, 500);
+    }
+  });
+  var input = form.elements[0];
+  if (input) {
+    input.focus();
+  }
+}
+function getValues(fields, domFields) {
+  var result2 = Object.create(null), i = 0;
+  for (var name in fields) {
+    var field = fields[name], dom = domFields[i++];
+    var value = field.read(dom), bad = field.validate(value);
+    if (bad) {
+      reportInvalid(dom, bad);
+      return null;
+    }
+    result2[name] = field.clean(value);
+  }
+  return result2;
+}
+function reportInvalid(dom, message) {
+  var parent = dom.parentNode;
+  var msg = parent.appendChild(document.createElement("div"));
+  msg.style.left = dom.offsetLeft + dom.offsetWidth + 2 + "px";
+  msg.style.top = dom.offsetTop - 5 + "px";
+  msg.className = "ProseMirror-invalid";
+  msg.textContent = message;
+  setTimeout(function() {
+    return parent.removeChild(msg);
+  }, 1500);
+}
+var Field = function Field2(options) {
+  this.options = options;
+};
+Field.prototype.read = function read(dom) {
+  return dom.value;
+};
+Field.prototype.validateType = function validateType(_value) {
+};
+Field.prototype.validate = function validate(value) {
+  if (!value && this.options.required) {
+    return "Required field";
+  }
+  return this.validateType(value) || this.options.validate && this.options.validate(value);
+};
+Field.prototype.clean = function clean(value) {
+  return this.options.clean ? this.options.clean(value) : value;
+};
+var TextField = /* @__PURE__ */ function(Field3) {
+  function TextField2() {
+    Field3.apply(this, arguments);
+  }
+  if (Field3)
+    TextField2.__proto__ = Field3;
+  TextField2.prototype = Object.create(Field3 && Field3.prototype);
+  TextField2.prototype.constructor = TextField2;
+  TextField2.prototype.render = function render4() {
+    var input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = this.options.label;
+    input.value = this.options.value || "";
+    input.autocomplete = "off";
+    return input;
+  };
+  return TextField2;
+}(Field);
+function canInsert(state, nodeType2) {
+  var $from = state.selection.$from;
+  for (var d = $from.depth; d >= 0; d--) {
+    var index2 = $from.index(d);
+    if ($from.node(d).canReplaceWith(index2, index2, nodeType2)) {
+      return true;
+    }
+  }
+  return false;
+}
+function insertImageItem(nodeType2) {
+  return new MenuItem({
+    title: "Insert image",
+    label: "Image",
+    enable: function enable(state) {
+      return canInsert(state, nodeType2);
+    },
+    run: function run2(state, _, view) {
+      var ref = state.selection;
+      var from4 = ref.from;
+      var to = ref.to;
+      var attrs = null;
+      if (state.selection instanceof NodeSelection && state.selection.node.type == nodeType2) {
+        attrs = state.selection.node.attrs;
+      }
+      openPrompt({
+        title: "Insert image",
+        fields: {
+          src: new TextField({ label: "Location", required: true, value: attrs && attrs.src }),
+          title: new TextField({ label: "Title", value: attrs && attrs.title }),
+          alt: new TextField({
+            label: "Description",
+            value: attrs ? attrs.alt : state.doc.textBetween(from4, to, " ")
+          })
+        },
+        callback: function callback(attrs2) {
+          view.dispatch(view.state.tr.replaceSelectionWith(nodeType2.createAndFill(attrs2)));
+          view.focus();
+        }
+      });
+    }
+  });
+}
+function cmdItem2(cmd, options) {
+  var passedOptions = {
+    label: options.title,
+    run: cmd
+  };
+  for (var prop in options) {
+    passedOptions[prop] = options[prop];
+  }
+  if ((!options.enable || options.enable === true) && !options.select) {
+    passedOptions[options.enable ? "enable" : "select"] = function(state) {
+      return cmd(state);
+    };
+  }
+  return new MenuItem(passedOptions);
+}
+function markActive2(state, type) {
+  var ref = state.selection;
+  var from4 = ref.from;
+  var $from = ref.$from;
+  var to = ref.to;
+  var empty2 = ref.empty;
+  if (empty2) {
+    return type.isInSet(state.storedMarks || $from.marks());
+  } else {
+    return state.doc.rangeHasMark(from4, to, type);
+  }
+}
+function markItem2(markType, options) {
+  var passedOptions = {
+    active: function active(state) {
+      return markActive2(state, markType);
+    },
+    enable: true
+  };
+  for (var prop in options) {
+    passedOptions[prop] = options[prop];
+  }
+  return cmdItem2(toggleMark(markType), passedOptions);
+}
+function linkItem(markType) {
+  return new MenuItem({
+    title: "Add or remove link",
+    icon: icons.link,
+    active: function active(state) {
+      return markActive2(state, markType);
+    },
+    enable: function enable(state) {
+      return !state.selection.empty;
+    },
+    run: function run2(state, dispatch2, view) {
+      if (markActive2(state, markType)) {
+        toggleMark(markType)(state, dispatch2);
+        return true;
+      }
+      openPrompt({
+        title: "Create a link",
+        fields: {
+          href: new TextField({
+            label: "Link target",
+            required: true
+          }),
+          title: new TextField({ label: "Title" })
+        },
+        callback: function callback(attrs) {
+          toggleMark(markType, attrs)(view.state, view.dispatch);
+          view.focus();
+        }
+      });
+    }
+  });
+}
+function wrapListItem(nodeType2, options) {
+  return cmdItem2(wrapInList(nodeType2, options.attrs), options);
+}
+function buildMenuItems(schema2) {
+  var r = {}, type;
+  if (type = schema2.marks.strong) {
+    r.toggleStrong = markItem2(type, { title: "Toggle strong style", icon: icons.strong });
+  }
+  if (type = schema2.marks.em) {
+    r.toggleEm = markItem2(type, { title: "Toggle emphasis", icon: icons.em });
+  }
+  if (type = schema2.marks.code) {
+    r.toggleCode = markItem2(type, { title: "Toggle code font", icon: icons.code });
+  }
+  if (type = schema2.marks.link) {
+    r.toggleLink = linkItem(type);
+  }
+  if (type = schema2.nodes.image) {
+    r.insertImage = insertImageItem(type);
+  }
+  if (type = schema2.nodes.bullet_list) {
+    r.wrapBulletList = wrapListItem(type, {
+      title: "Wrap in bullet list",
+      icon: icons.bulletList
+    });
+  }
+  if (type = schema2.nodes.ordered_list) {
+    r.wrapOrderedList = wrapListItem(type, {
+      title: "Wrap in ordered list",
+      icon: icons.orderedList
+    });
+  }
+  if (type = schema2.nodes.blockquote) {
+    r.wrapBlockQuote = wrapItem(type, {
+      title: "Wrap in block quote",
+      icon: icons.blockquote
+    });
+  }
+  if (type = schema2.nodes.paragraph) {
+    r.makeParagraph = blockTypeItem(type, {
+      title: "Change to paragraph",
+      label: "Plain"
+    });
+  }
+  if (type = schema2.nodes.code_block) {
+    r.makeCodeBlock = blockTypeItem(type, {
+      title: "Change to code block",
+      label: "Code"
+    });
+  }
+  if (type = schema2.nodes.heading) {
+    for (var i = 1; i <= 10; i++) {
+      r["makeHead" + i] = blockTypeItem(type, {
+        title: "Change to heading " + i,
+        label: "Level " + i,
+        attrs: { level: i }
+      });
+    }
+  }
+  if (type = schema2.nodes.horizontal_rule) {
+    var hr = type;
+    r.insertHorizontalRule = new MenuItem({
+      title: "Insert horizontal rule",
+      label: "Horizontal rule",
+      enable: function enable(state) {
+        return canInsert(state, hr);
+      },
+      run: function run2(state, dispatch2) {
+        dispatch2(state.tr.replaceSelectionWith(hr.create()));
+      }
+    });
+  }
+  var cut3 = function(arr) {
+    return arr.filter(function(x) {
+      return x;
+    });
+  };
+  r.insertMenu = new Dropdown(cut3([r.insertImage, r.insertHorizontalRule]), { label: "Insert" });
+  r.typeMenu = new Dropdown(cut3([r.makeParagraph, r.makeCodeBlock, r.makeHead1 && new DropdownSubmenu(cut3([
+    r.makeHead1,
+    r.makeHead2,
+    r.makeHead3,
+    r.makeHead4,
+    r.makeHead5,
+    r.makeHead6
+  ]), { label: "Heading" })]), { label: "Type..." });
+  r.inlineMenu = [cut3([r.toggleStrong, r.toggleEm, r.toggleCode, r.toggleLink])];
+  r.blockMenu = [cut3([
+    r.wrapBulletList,
+    r.wrapOrderedList,
+    r.wrapBlockQuote,
+    joinUpItem,
+    liftItem,
+    selectParentNodeItem
+  ])];
+  r.fullMenu = r.inlineMenu.concat([[r.insertMenu, r.typeMenu]], [[undoItem, redoItem]], r.blockMenu);
+  return r;
+}
+var mac4 = typeof navigator != "undefined" ? /Mac/.test(navigator.platform) : false;
+function buildKeymap(schema2, mapKeys) {
+  var keys2 = {}, type;
+  function bind2(key, cmd2) {
+    if (mapKeys) {
+      var mapped = mapKeys[key];
+      if (mapped === false) {
+        return;
+      }
+      if (mapped) {
+        key = mapped;
+      }
+    }
+    keys2[key] = cmd2;
+  }
+  bind2("Mod-z", undo);
+  bind2("Shift-Mod-z", redo);
+  bind2("Backspace", undoInputRule);
+  if (!mac4) {
+    bind2("Mod-y", redo);
+  }
+  bind2("Alt-ArrowUp", joinUp);
+  bind2("Alt-ArrowDown", joinDown);
+  bind2("Mod-BracketLeft", lift);
+  bind2("Escape", selectParentNode);
+  if (type = schema2.marks.strong) {
+    bind2("Mod-b", toggleMark(type));
+    bind2("Mod-B", toggleMark(type));
+  }
+  if (type = schema2.marks.em) {
+    bind2("Mod-i", toggleMark(type));
+    bind2("Mod-I", toggleMark(type));
+  }
+  if (type = schema2.marks.code) {
+    bind2("Mod-`", toggleMark(type));
+  }
+  if (type = schema2.nodes.bullet_list) {
+    bind2("Shift-Ctrl-8", wrapInList(type));
+  }
+  if (type = schema2.nodes.ordered_list) {
+    bind2("Shift-Ctrl-9", wrapInList(type));
+  }
+  if (type = schema2.nodes.blockquote) {
+    bind2("Ctrl->", wrapIn(type));
+  }
+  if (type = schema2.nodes.hard_break) {
+    var br = type, cmd = chainCommands(exitCode, function(state, dispatch2) {
+      dispatch2(state.tr.replaceSelectionWith(br.create()).scrollIntoView());
+      return true;
+    });
+    bind2("Mod-Enter", cmd);
+    bind2("Shift-Enter", cmd);
+    if (mac4) {
+      bind2("Ctrl-Enter", cmd);
+    }
+  }
+  if (type = schema2.nodes.list_item) {
+    bind2("Enter", splitListItem(type));
+    bind2("Mod-[", liftListItem(type));
+    bind2("Mod-]", sinkListItem(type));
+  }
+  if (type = schema2.nodes.paragraph) {
+    bind2("Shift-Ctrl-0", setBlockType(type));
+  }
+  if (type = schema2.nodes.code_block) {
+    bind2("Shift-Ctrl-\\", setBlockType(type));
+  }
+  if (type = schema2.nodes.heading) {
+    for (var i = 1; i <= 6; i++) {
+      bind2("Shift-Ctrl-" + i, setBlockType(type, { level: i }));
+    }
+  }
+  if (type = schema2.nodes.horizontal_rule) {
+    var hr = type;
+    bind2("Mod-_", function(state, dispatch2) {
+      dispatch2(state.tr.replaceSelectionWith(hr.create()).scrollIntoView());
+      return true;
+    });
+  }
+  return keys2;
+}
+function blockQuoteRule(nodeType2) {
+  return wrappingInputRule(/^\s*>\s$/, nodeType2);
+}
+function orderedListRule(nodeType2) {
+  return wrappingInputRule(/^(\d+)\.\s$/, nodeType2, function(match) {
+    return { order: +match[1] };
+  }, function(match, node4) {
+    return node4.childCount + node4.attrs.order == +match[1];
+  });
+}
+function bulletListRule(nodeType2) {
+  return wrappingInputRule(/^\s*([-+*])\s$/, nodeType2);
+}
+function codeBlockRule(nodeType2) {
+  return textblockTypeInputRule(/^```$/, nodeType2);
+}
+function headingRule(nodeType2, maxLevel) {
+  return textblockTypeInputRule(new RegExp("^(#{1," + maxLevel + "})\\s$"), nodeType2, function(match) {
+    return { level: match[1].length };
+  });
+}
+function buildInputRules(schema2) {
+  var rules = smartQuotes.concat(ellipsis, emDash), type;
+  if (type = schema2.nodes.blockquote) {
+    rules.push(blockQuoteRule(type));
+  }
+  if (type = schema2.nodes.ordered_list) {
+    rules.push(orderedListRule(type));
+  }
+  if (type = schema2.nodes.bullet_list) {
+    rules.push(bulletListRule(type));
+  }
+  if (type = schema2.nodes.code_block) {
+    rules.push(codeBlockRule(type));
+  }
+  if (type = schema2.nodes.heading) {
+    rules.push(headingRule(type, 6));
+  }
+  return inputRules({ rules });
+}
+function exampleSetup(options) {
+  var plugins = [
+    buildInputRules(options.schema),
+    keymap(buildKeymap(options.schema, options.mapKeys)),
+    keymap(baseKeymap),
+    dropCursor(),
+    gapCursor()
+  ];
+  if (options.menuBar !== false) {
+    plugins.push(menuBar({
+      floating: options.floatingMenu !== false,
+      content: options.menuContent || buildMenuItems(options.schema).fullMenu
+    }));
+  }
+  if (options.history !== false) {
+    plugins.push(history());
+  }
+  return plugins.concat(new Plugin({
+    props: {
+      attributes: { class: "ProseMirror-example-setup-style" }
+    }
+  }));
+}
+
+// js/hooks/index.js
+var ExProsemirrorHooks = {};
+ExProsemirrorHooks.MountProseMirror = {
+  mounted() {
+    js_default.init(this.el, { schemaFunc: schema_default, pluginFunc: exampleSetup });
+  },
+  updated() {
+    js_default.init(this.el, { schemaFunc: schema_default, pluginFunc: exampleSetup });
+  }
+};
+
+// js/prosemirror/keymaps.js
+function insertHardBreak(state, dispatch2) {
+  const br = state.schema.nodes.hard_break;
+  dispatch2(state.tr.replaceSelectionWith(br.create()).scrollIntoView());
+}
+var hardBreakKeymap = {
+  "Shift-Enter": chainCommands(exitCode, insertHardBreak)
 };
 
 // js/index.js
