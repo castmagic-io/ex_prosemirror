@@ -1,5 +1,15 @@
 import ExEditorView from './ExEditorView';
 
+export { ExProsemirrorHooks } from './hooks';
+export { blocks, generateSchemablocks } from './prosemirror/blocks';
+export { marks, generateSchemaMarks } from './prosemirror/marks';
+export { placeholderPlugin, insertPlaceholder, replacePlaceholder } from './prosemirror/plugins/placeholder';
+export { icons } from './prosemirror/icons';
+export { keymap, baseKeymap, hardBreakKeymap } from './prosemirror/keymaps';
+export * as menu from './prosemirror/menu';
+export { default as createSchema } from './prosemirror/schema';
+export { default as ExEditorView } from './ExEditorView';
+
 /**
  * @type {NodeListOf<HTMLElement>} proseInstances
  */
