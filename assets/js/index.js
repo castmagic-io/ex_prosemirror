@@ -1,5 +1,11 @@
 import ExEditorView from './ExEditorView';
 
+export * as prosemirrorExampleSetup from "prosemirror-example-setup";
+export * as prosemirrorModel from "prosemirror-model";
+export * as prosemirrorSchemaBasic from "prosemirror-schema-basic";
+export * as prosemirrorState from "prosemirror-state";
+export * as prosemirrorView from "prosemirror-view";
+
 export { ExProsemirrorHooks } from './hooks';
 export { blocks, generateSchemablocks } from './prosemirror/blocks';
 export { marks, generateSchemaMarks } from './prosemirror/marks';
