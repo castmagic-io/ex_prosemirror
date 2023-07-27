@@ -38,6 +38,7 @@ var LiveView = (() => {
     generateSchemablocks: () => generateSchemablocks,
     hardBreakKeymap: () => hardBreakKeymap,
     icons: () => icons,
+    inject: () => inject_default,
     insertPlaceholder: () => insertPlaceholder,
     keymap: () => keymap,
     marks: () => marks,

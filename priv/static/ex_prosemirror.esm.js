@@ -567,6 +567,7 @@ export {
   generateSchemablocks,
   hardBreakKeymap,
   icons,
+  inject_default as inject,
   insertPlaceholder,
   keymap,
   marks,
