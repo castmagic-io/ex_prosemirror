@@ -205,7 +205,7 @@ defmodule ExProsemirror do
 
       def extract_simple_text(%__MODULE__{text: text}), do: text
   """
-  @callback extract_simple_text(struct :: struct()) :: String.t() | nil
+  @callback extract_simple_text(struct :: struct()) :: [String.t()] | String.t() | nil
 
   @optional_callbacks [extract_simple_text: 1]
 
