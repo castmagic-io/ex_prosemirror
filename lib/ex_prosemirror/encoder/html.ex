@@ -31,8 +31,8 @@ defprotocol ExProsemirror.Encoder.HTML do
 end
 
 defimpl ExProsemirror.Encoder.HTML, for: List do
-  def encode(structs, _opts) do
-    Enum.map(structs, &ExProsemirror.Encoder.HTML.encode/1)
+  def encode(structs, opts) do
+    Enum.map(structs, &ExProsemirror.Encoder.HTML.encode(&1, opts))
   end
 end
 

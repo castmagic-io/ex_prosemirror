@@ -55,8 +55,8 @@ defmodule ExProsemirror.TypeGenerator do
       defdelegate changeset(struct_or_changeset, attrs, allowed_marks), to: ExProsemirror.Type
 
       defimpl HTMLEncoder do
-        def encode(struct, _opts) do
-          HTMLEncoder.encode(struct.content)
+        def encode(struct, opts) do
+          HTMLEncoder.encode(struct.content, opts)
         end
       end
 
