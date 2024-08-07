@@ -15,7 +15,6 @@ defmodule ExProsemirror.Block.Text do
 
   use ExProsemirror
   use ExProsemirror.Schema
-  use ExProsemirror.Encoder.Json, type: :text
 
   import Ecto.Changeset
 
@@ -61,6 +60,15 @@ defmodule ExProsemirror.Block.Text do
       "Hello elixir's friends"
   """
   def extract_simple_text(%__MODULE__{text: text}), do: text
+
+  defimpl Jason.Encoder do
+    def encode(struct, opts) do
+      Map.from_struct(struct)
+      |> Map.put(:type, :text)
+      |> Map.update!(:text, &(&1 || ""))
+      |> Jason.Encode.map(opts)
+    end
+  end
 
   defimpl HTMLEncoder do
     def encode(struct, _opts) do
